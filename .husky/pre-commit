@@ -1,0 +1,3 @@
+echo "[husky] running lint-staged and type-check..."
+npx lint-staged --no-stash --verbose
+npm run type-check
