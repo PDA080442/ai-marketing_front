@@ -8,7 +8,9 @@ export function useApi(url = '') {
     return localStorage.getItem('accessToken')
   }
   async function call(url: string, data: object, method: Method = 'get'): Promise<unknown> {
-    const fullUrl = `http://localhost:8000${instance}${url}`
+    const base = import.meta.env.VITE_API_BASE_URL
+    const fullUrl = `${base}${instance}${url}`
+    // const fullUrl = `http://localhost:8000${instance}${url}`
     console.log(fullUrl, getToken())
 
     const response = await axios.request({
