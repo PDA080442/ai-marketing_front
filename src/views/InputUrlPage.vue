@@ -1,5 +1,22 @@
 <template>
-  <div></div>
+  <v-main class="fill-height d-flex align-center justify-center">
+    <InputField />
+  </v-main>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts">
+import { defineComponent } from 'vue'
+import InputField from '@/components/InputPage/InputField.vue'
+
+export default defineComponent({
+  name: 'InputPage',
+  components: { InputField },
+})
+</script>
+
+<style scoped>
+.v-main {
+  padding: 0;
+  background: #f5f7fa;
+}
+</style>
