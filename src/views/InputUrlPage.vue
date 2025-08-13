@@ -17,6 +17,7 @@ export default defineComponent({
 <style scoped>
 .v-main {
   padding: 0;
+  margin: 0;
   background: #f5f7fa;
 }
 </style>
