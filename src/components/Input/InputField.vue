@@ -51,14 +51,31 @@
       >
         Analyze
       </v-btn>
+      <v-snackbar
+        class="snackbar"
+        :color="snackbarColor"
+        v-model="snackbar"
+        location="top"
+        elevation="0"
+        transition="slide-y-transition"
+        :timeout="600000"
+      >
+        <div class="snackbar-content">
+          <span>{{ snackbarText }}</span>
+        </div>
+      </v-snackbar>
     </v-card>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import type { InputUrl } from '@/types/Input/input.types'
 import { postUrl } from '@/composable/Input/input.request'
+
+const snackbar = ref(false)
+const snackbarColor = ref<'success' | 'error'>('success')
+const snackbarText = ref('')
 
 const input = reactive<InputUrl>({
   url: [''],
@@ -66,12 +83,18 @@ const input = reactive<InputUrl>({
 
 const addLink = () => {
   input.url.push('')
+  snackbarText.value = 'You added new field for link'
+  snackbarColor.value = 'success'
+  snackbar.value = true
 }
 
 const removeLink = (index: number) => {
   if (input.url.length > 1) {
     input.url.splice(index, 1)
   }
+  snackbarText.value = 'You deleted field for link'
+  snackbarColor.value = 'success'
+  snackbar.value = true
 }
 
 const isValidUrl = (url: string) => {
@@ -82,14 +105,23 @@ const submit = async () => {
   for (const url of input.url) {
     if (!isValidUrl(url)) {
       console.error(`Невалидная ссылка: ${url}`)
+      snackbarText.value = `${url} is not valid`
+      snackbarColor.value = 'error'
+      snackbar.value = true
       return
     }
   }
 
   try {
     await postUrl(input)
+    snackbarText.value = 'You sent link(s) for analyze'
+    snackbarColor.value = 'success'
+    snackbar.value = true
   } catch (err) {
     console.error(err)
+    snackbarText.value = 'An error has occurred. \n Please check your links and try again.'
+    snackbarColor.value = 'error'
+    snackbar.value = true
   }
 }
 </script>
@@ -141,5 +173,19 @@ const submit = async () => {
 .remove-btn {
   min-width: 32px;
   height: 32px;
+}
+
+.snackbar {
+  border-radius: 12px;
+  padding: 14px 20px !important;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.snackbar-content {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
 }
 </style>
