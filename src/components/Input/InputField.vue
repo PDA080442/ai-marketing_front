@@ -70,7 +70,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import type { InputUrl } from '@/types/Input/input.types'
+import type { InputUrl, TokenUser } from '@/types/Input/input.types'
 import { postUrl } from '@/composable/Input/input.request'
 
 const snackbar = ref(false)
@@ -113,7 +113,8 @@ const submit = async () => {
   }
 
   try {
-    await postUrl(input)
+    const { token } = (await postUrl(input)) as TokenUser
+    localStorage.setItem('tokenUser: ', token)
     snackbarText.value = 'You sent link(s) for analyze'
     snackbarColor.value = 'success'
     snackbar.value = true
