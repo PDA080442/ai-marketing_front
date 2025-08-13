@@ -7,12 +7,12 @@
       </v-card-text>
 
       <div
-        v-for="(link, index) in links"
+        v-for="(link, index) in input.url"
         :key="index"
         class="d-flex align-center mb-5 url-input-group"
       >
         <v-text-field
-          v-model="links[index]"
+          v-model="input.url[index]"
           variant="outlined"
           rounded="lg"
           hide-details="auto"
@@ -22,7 +22,7 @@
         ></v-text-field>
 
         <v-btn
-          v-if="links.length > 1 && index !== links.length - 1"
+          v-if="input.url.length > 1 && index !== input.url.length - 1"
           prepend-icon="mdi-close"
           variant="text"
           color="grey darken-1"
@@ -31,7 +31,7 @@
         >
         </v-btn>
         <v-btn
-          v-if="index === links.length - 1"
+          v-if="index === input.url.length - 1"
           icon
           color="primary"
           @click="addLink"
@@ -41,7 +41,14 @@
         </v-btn>
       </div>
 
-      <v-btn class="analyze-btn mb-4" color="primary" size="large" block rounded="lg">
+      <v-btn
+        class="analyze-btn mb-4"
+        color="primary"
+        size="large"
+        block
+        rounded="lg"
+        @click="submit"
+      >
         Analyze
       </v-btn>
     </v-card>
@@ -49,17 +56,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive } from 'vue'
+import type { InputUrl } from '@/types/Input/input.types'
+import { postUrl } from '@/composable/Input/input.request'
 
-const links = ref([''])
+const input = reactive<InputUrl>({
+  url: [''],
+})
 
 const addLink = () => {
-  links.value.push('')
+  input.url.push('')
 }
 
 const removeLink = (index: number) => {
-  if (links.value.length > 1) {
-    links.value.splice(index, 1)
+  if (input.url.length > 1) {
+    input.url.splice(index, 1)
+  }
+}
+
+const isValidUrl = (url: string) => {
+  return (url.startsWith('http://') || url.startsWith('https://')) && !url.includes(' ')
+}
+
+const submit = async () => {
+  for (const url of input.url) {
+    if (!isValidUrl(url)) {
+      console.error(`Невалидная ссылка: ${url}`)
+      return
+    }
+  }
+
+  try {
+    await postUrl(input)
+  } catch (err) {
+    console.error(err)
   }
 }
 </script>

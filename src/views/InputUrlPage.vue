@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import InputField from '@/components/InputPage/InputField.vue'
+import InputField from '@/components/Input/InputField.vue'
 
 export default defineComponent({
   name: 'InputPage',
