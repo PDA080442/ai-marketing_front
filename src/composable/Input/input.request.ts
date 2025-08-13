@@ -4,5 +4,5 @@ import { useApi } from '../useApi'
 const { call } = useApi('/input')
 
 export async function postUrl(data: InputUrl): Promise<void> {
-  await call(`/url/`, data, 'POST')
+  await call(`/urls/`, data, 'POST')
 }
