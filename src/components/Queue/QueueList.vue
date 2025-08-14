@@ -3,7 +3,7 @@
     <h1 class="queue-title">Processing Queue</h1>
     <v-data-table
       :headers="headers"
-      :items="items"
+      :items="queueItems"
       item-key="id"
       class="elevation-4 rounded-xl overflow-hidden pa-2"
     >
@@ -37,16 +37,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { QueueItems, QueuseProgress } from '@/types/Queue/queue.types'
-import { queueMocks } from '@/mocks/queue.mocks'
+import { getQueueLinks } from '@/composable/Queue/queue.request'
 
 const headers = [
   { title: 'Link', key: 'url' },
   { title: 'Progress', key: 'progress', sortable: false },
 ]
 
-const items = ref<QueueItems[]>(queueMocks)
+const queueItems = ref<QueueItems[]>([])
 
 const COLORS = {
   primary: '#1E88E5',
@@ -82,6 +82,20 @@ function barProps(status: QueuseProgress['status']) {
       }
   }
 }
+
+onMounted(async () => {
+  const token = localStorage.getItem('tokenUser: ') || ''
+  if (!token) {
+    return
+  }
+  try {
+    const response = await getQueueLinks(token)
+    queueItems.value = response
+  } catch (error) {
+    console.error(error)
+    queueItems.value = []
+  }
+})
 </script>
 
 <style scoped>
