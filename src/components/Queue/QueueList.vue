@@ -16,20 +16,23 @@
         </div>
       </template>
       <template v-slot:[`item.progress`]="{ item }">
-        <div>
-          <v-progress-linear
-            :model-value="barProps(item.progress.status).value"
-            :indeterminate="barProps(item.progress.status).indeterminate"
-            :color="barProps(item.progress.status).color"
-            height="20"
-            rounded
-          >
-            <template #default>
-              <span :class="['bar-label', barProps(item.progress.status).labelClass]">
-                {{ barProps(item.progress.status).label }}
-              </span>
-            </template>
-          </v-progress-linear>
+        <div class="status-cell">
+          <template v-if="item.progress.status !== 'done'">
+            <v-chip class="queued-chip" size="small" variant="elevated" color="#B0BEC5">
+              Queued
+            </v-chip>
+          </template>
+          <template v-else>
+            <v-btn
+              color="success"
+              size="small"
+              rounded="lg"
+              variant="elevated"
+              :to="{ name: 'Result', query: { id: item.id } }"
+            >
+              Result
+            </v-btn>
+          </template>
         </div>
       </template>
     </v-data-table>
@@ -38,50 +41,14 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import type { QueueItems, QueuseProgress } from '@/types/Queue/queue.types'
+import type { QueueItems } from '@/types/Queue/queue.types'
 import { getQueueLinks } from '@/composable/Queue/queue.request'
 
 const headers = [
   { title: 'Link', key: 'url' },
   { title: 'Progress', key: 'progress', sortable: false },
 ]
-
 const queueItems = ref<QueueItems[]>([])
-
-const COLORS = {
-  primary: '#1E88E5',
-  success: '#43A047',
-  queued: '#B0BEC5',
-}
-
-function barProps(status: QueuseProgress['status']) {
-  switch (status) {
-    case 'queued':
-      return {
-        value: 0,
-        indeterminate: false,
-        color: COLORS.queued,
-        label: 'Queued',
-        labelClass: 'label-queued',
-      }
-    case 'processing':
-      return {
-        value: 50,
-        indeterminate: true,
-        color: COLORS.primary,
-        label: 'Processing…',
-        labelClass: 'label-processing',
-      }
-    case 'done':
-      return {
-        value: 100,
-        indeterminate: false,
-        color: COLORS.success,
-        label: 'Done',
-        labelClass: 'label-done',
-      }
-  }
-}
 
 onMounted(async () => {
   const token = localStorage.getItem('tokenUser: ') || ''
