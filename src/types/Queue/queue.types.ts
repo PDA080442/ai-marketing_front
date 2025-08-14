@@ -7,3 +7,7 @@ export interface QueueItems {
 export interface QueuseProgress {
   status: 'queued' | 'processing' | 'done'
 }
+
+export interface QueueResponse {
+  items: QueueItems[]
+}
