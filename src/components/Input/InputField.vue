@@ -72,7 +72,9 @@
 import { reactive, ref } from 'vue'
 import type { InputUrl, TokenUser } from '@/types/Input/input.types'
 import { postUrl } from '@/composable/Input/input.request'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')
 const snackbarText = ref('')
@@ -115,6 +117,7 @@ const submit = async () => {
   try {
     const { token } = (await postUrl(input)) as TokenUser
     localStorage.setItem('tokenUser: ', token)
+    await router.push({ name: 'Queue', query: { token } })
     snackbarText.value = 'You sent link(s) for analyze'
     snackbarColor.value = 'success'
     snackbar.value = true
