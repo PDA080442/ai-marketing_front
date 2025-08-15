@@ -12,7 +12,7 @@
           Metadata
         </v-expansion-panel-title>
         <v-expansion-panel-text class="pc-panel-text">
-          <div class="pc-placeholder">[Table of meta tags will be here]</div>
+          <MetadataTable :items="mockMetaTags" />
         </v-expansion-panel-text>
       </v-expansion-panel>
       <v-expansion-panel rounded="lg" class="pc-panel">
@@ -27,7 +27,7 @@
       <v-expansion-panel rounded="lg" class="pc-panel">
         <v-expansion-panel-title class="pc-panel-title" expand-icon="mdi-chevron-down">
           <v-icon size="18" class="mr-2">mdi-text-box-outline</v-icon>
-          Page Text
+          DOM Structure
         </v-expansion-panel-title>
         <v-expansion-panel-text class="pc-panel-text">
           <div class="pc-placeholder">[Page text will be here]</div>
@@ -37,7 +37,10 @@
   </v-container>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import MetadataTable from './MetadataTable.vue'
+import { mockMetaTags } from '@/mocks/metadata.mocks'
+</script>
 
 <style scoped>
 .pc-wrapper {
