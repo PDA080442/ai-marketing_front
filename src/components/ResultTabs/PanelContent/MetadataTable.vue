@@ -1,4 +1,9 @@
 <template>
+  <header class="table-header">
+    <h2 class="table-title">Extracted Metadata</h2>
+  </header>
+
+  <v-divider class="mb-4" />
   <v-data-table :headers="headers" :items="items" item-key="id" class="container-table">
     <template v-slot:[`item.name`]="{ item }">
       <div class="table-name">
@@ -33,6 +38,17 @@ const headers = [
 .container-table {
   border: 1px solid #e9edf2;
   border-radius: 10px;
+}
+
+.table-header {
+  margin-bottom: 16px;
+}
+
+.table-title {
+  font-weight: 800;
+  font-size: 22px;
+  color: #0a7cff;
+  letter-spacing: 0.5px;
 }
 
 .table-name .table-chip {

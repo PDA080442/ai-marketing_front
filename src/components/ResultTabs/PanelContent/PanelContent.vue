@@ -17,20 +17,20 @@
       </v-expansion-panel>
       <v-expansion-panel rounded="lg" class="pc-panel">
         <v-expansion-panel-title class="pc-panel-title" expand-icon="mdi-chevron-down">
-          <v-icon size="18" class="mr-2">mdi-format-header-pound</v-icon>
-          Headings
-        </v-expansion-panel-title>
-        <v-expansion-panel-text class="pc-panel-text">
-          <div class="pc-placeholder">[Headings tree will be here]</div>
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-      <v-expansion-panel rounded="lg" class="pc-panel">
-        <v-expansion-panel-title class="pc-panel-title" expand-icon="mdi-chevron-down">
           <v-icon size="18" class="mr-2">mdi-text-box-outline</v-icon>
           DOM Structure
         </v-expansion-panel-title>
         <v-expansion-panel-text class="pc-panel-text">
           <div class="pc-placeholder">[Page text will be here]</div>
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+      <v-expansion-panel rounded="lg" class="pc-panel">
+        <v-expansion-panel-title class="pc-panel-title" expand-icon="mdi-chevron-down">
+          <v-icon size="18" class="mr-2">mdi-format-header-pound</v-icon>
+          Text from site
+        </v-expansion-panel-title>
+        <v-expansion-panel-text class="pc-panel-text">
+          <PageText :items="mockPageText" />
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -40,6 +40,8 @@
 <script setup lang="ts">
 import MetadataTable from './MetadataTable.vue'
 import { mockMetaTags } from '@/mocks/metadata.mocks'
+import PageText from './PageText.vue'
+import { mockPageText } from '@/mocks/page.text.mocks'
 </script>
 
 <style scoped>
