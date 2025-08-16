@@ -21,7 +21,7 @@
           DOM Structure
         </v-expansion-panel-title>
         <v-expansion-panel-text class="pc-panel-text">
-          <div class="pc-placeholder">[Page text will be here]</div>
+          <DomTree :items="mockDomTree" />
         </v-expansion-panel-text>
       </v-expansion-panel>
       <v-expansion-panel rounded="lg" class="pc-panel">
@@ -42,6 +42,8 @@ import MetadataTable from './MetadataTable.vue'
 import { mockMetaTags } from '@/mocks/metadata.mocks'
 import PageText from './PageText.vue'
 import { mockPageText } from '@/mocks/page.text.mocks'
+import DomTree from './DomTree.vue'
+import { mockDomTree } from '@/mocks/dom.mocks'
 </script>
 
 <style scoped>
