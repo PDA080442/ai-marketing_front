@@ -1,8 +1,7 @@
 <template>
   <div>
     <header class="pt-header">
-      <h2 class="pt-title">Extracted Text</h2>
-      <p class="pt-subtitle">Raw text content retrieved from the scanned page</p>
+      <h1 class="pt-title">Extracted Text</h1>
     </header>
     <v-divider class="mb-4" />
     <div class="pt-content">
@@ -11,7 +10,7 @@
         :key="block.id"
         class="pt-block"
         elevation="2"
-        rounded="xl"
+        rounded="lg"
       >
         <p class="pt-text">{{ block.content }}</p>
       </v-card>
@@ -35,11 +34,6 @@ const props = defineProps<{ items: PageText[] }>()
   font-size: 22px;
   color: #0a7cff;
   letter-spacing: 0.5px;
-}
-
-.pt-subtitle {
-  color: #6c757d;
-  font-size: 14px;
 }
 
 .pt-content {
