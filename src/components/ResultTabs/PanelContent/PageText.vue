@@ -9,6 +9,18 @@
         <p class="pt-text">{{ block.content }}</p>
       </v-card>
     </div>
+    <v-snackbar
+      class="snackbar"
+      :color="snackbarColor"
+      v-model="snackbar"
+      location="top"
+      elevation="0"
+      transition="slide-y-transition"
+    >
+      <div class="snackbar-content">
+        <span>{{ snackbarText }}</span>
+      </div>
+    </v-snackbar>
   </div>
 </template>
 
@@ -17,6 +29,10 @@ import { ref, onMounted } from 'vue'
 import type { PageText } from '@/types/Panel/Text/text.types'
 import { getTextPage } from '@/composable/PanelContent/panelcontent.request'
 
+const snackbar = ref(false)
+const snackbarColor = ref<'success' | 'error'>('success')
+const snackbarText = ref('')
+
 const items = ref<PageText[]>([])
 
 onMounted(async () => {
@@ -24,6 +40,9 @@ onMounted(async () => {
     const response = await getTextPage()
     items.value = Array.isArray(response) ? response : [response]
   } catch (err) {
+    snackbar.value = true
+    snackbarColor.value = 'error'
+    snackbarText.value = 'An error has occurred - data not loaded. Please reload the page.'
     console.error('Failed to load page text:', err)
   }
 })
