@@ -7,3 +7,9 @@ export interface ScreenshotItem {
   pageTitle?: string
   createdAt?: string // ISO-строка времени, если нужно показывать дату
 }
+
+export interface ScreenshotDownload {
+  id: string
+  url: string
+  fileName: string
+}
