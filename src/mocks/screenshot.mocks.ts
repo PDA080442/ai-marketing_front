@@ -1,4 +1,4 @@
-import type { ScreenshotItem } from '@/types/Gallery/screenshot.types'
+import type { ScreenshotItem } from '@/types/Gallery/gallery.types'
 
 export const mockScreenshots: ScreenshotItem[] = [
   {

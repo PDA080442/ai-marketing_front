@@ -39,7 +39,7 @@
             {{ currentItem?.pageTitle || currentItem?.alt }}
           </div>
           <div class="sg-lightbox-actions">
-            <DownloadButton />
+            <DownloadButton v-if="currentItem" :id="currentItem.id" />
             <v-btn icon variant="text" @click="lightboxOpen = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -64,25 +64,52 @@
         </v-carousel>
       </v-card>
     </v-dialog>
+    <v-snackbar
+      class="snackbar"
+      :color="snackbarColor"
+      v-model="snackbar"
+      location="top"
+      elevation="0"
+      transition="slide-y-transition"
+    >
+      <div class="snackbar-content">
+        <span>{{ snackbarText }}</span>
+      </div>
+    </v-snackbar>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import type { ScreenshotItem } from '@/types/Gallery/screenshot.types'
+import { ref, computed, onMounted } from 'vue'
+import type { ScreenshotItem } from '@/types/Gallery/gallery.types'
 import DownloadButton from './DownloadButton.vue'
+import { getGalleryScreen } from '@/composable/Gallery/gallery.request'
 
-const props = defineProps<{ items: ScreenshotItem[] }>()
-
+const items = ref<ScreenshotItem[]>([])
 const lightboxOpen = ref(false)
 const carouselIndex = ref(0)
 
-const currentItem = computed(() => props.items[carouselIndex.value])
+const snackbar = ref(false)
+const snackbarColor = ref<'success' | 'error'>('success')
+const snackbarText = ref('')
+
+const currentItem = computed(() => items.value[carouselIndex.value])
 
 const openLightbox = (index: number) => {
   carouselIndex.value = index
   lightboxOpen.value = true
 }
+
+onMounted(async () => {
+  try {
+    items.value = await getGalleryScreen()
+  } catch (err) {
+    console.log('Error: ', err)
+    snackbar.value = true
+    snackbarColor.value = 'error'
+    snackbarText.value = 'Error. Data not loaded'
+  }
+})
 </script>
 
 <style scoped>
