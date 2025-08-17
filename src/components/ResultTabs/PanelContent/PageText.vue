@@ -5,13 +5,7 @@
     </header>
     <v-divider class="mb-4" />
     <div class="pt-content">
-      <v-card
-        v-for="block in props.items"
-        :key="block.id"
-        class="pt-block"
-        elevation="2"
-        rounded="lg"
-      >
+      <v-card v-for="block in items" :key="block.id" class="pt-block" elevation="2" rounded="lg">
         <p class="pt-text">{{ block.content }}</p>
       </v-card>
     </div>
@@ -19,9 +13,20 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import type { PageText } from '@/types/Panel/Text/text.types'
+import { getTextPage } from '@/composable/PanelContent/panelcontent.request'
 
-const props = defineProps<{ items: PageText[] }>()
+const items = ref<PageText[]>([])
+
+onMounted(async () => {
+  try {
+    const response = await getTextPage()
+    items.value = Array.isArray(response) ? response : [response]
+  } catch (err) {
+    console.error('Failed to load page text:', err)
+  }
+})
 </script>
 
 <style scoped>

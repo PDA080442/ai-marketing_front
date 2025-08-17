@@ -10,8 +10,6 @@
         <v-chip class="table-chip" size="small" label>{{ item.name }}</v-chip>
       </div>
     </template>
-
-    <!-- VALUE (ellipsis + native tooltip) -->
     <template v-slot:[`item.value`]="{ item }">
       <div class="table-value" :title="item.value">
         {{ item.value }}
@@ -21,17 +19,25 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import type { MetaType } from '@/types/Panel/Metadata/metadata.types'
+import { getMetadata } from '@/composable/PanelContent/panelcontent.request'
 
-interface Props {
-  items: MetaType[]
-}
-defineProps<Props>()
+const items = ref<MetaType[]>([])
 
 const headers = [
   { title: 'Name', key: 'name', sortable: true },
   { title: 'Value', key: 'value', sortable: false },
 ]
+
+onMounted(async () => {
+  try {
+    const response = await getMetadata()
+    items.value = Array.isArray(response) ? response : [response]
+  } catch (err) {
+    console.error('Failed to load metadata:', err)
+  }
+})
 </script>
 
 <style scoped>
