@@ -1,0 +1,58 @@
+import type { ScreenshotItem } from '@/types/Gallery/screenshot.types'
+
+export const mockScreenshots: ScreenshotItem[] = [
+  {
+    id: 'sc-01',
+    url: 'https://picsum.photos/seed/amcc1/1200/800',
+    alt: 'Homepage — full page',
+    width: 1200,
+    height: 800,
+    pageTitle: 'Homepage',
+    createdAt: '2025-08-10T10:00:00Z',
+  },
+  {
+    id: 'sc-02',
+    url: 'https://picsum.photos/seed/amcc2/1000/700',
+    alt: 'Homepage — viewport',
+    width: 1000,
+    height: 700,
+    pageTitle: 'Homepage',
+    createdAt: '2025-08-10T10:01:00Z',
+  },
+  {
+    id: 'sc-03',
+    url: 'https://picsum.photos/seed/amcc3/800/1200',
+    alt: 'Pricing — mobile',
+    width: 800,
+    height: 1200,
+    pageTitle: 'Pricing',
+    createdAt: '2025-08-10T10:02:00Z',
+  },
+  {
+    id: 'sc-04',
+    url: 'https://picsum.photos/seed/amcc4/1440/900',
+    alt: 'Pricing — desktop',
+    width: 1440,
+    height: 900,
+    pageTitle: 'Pricing',
+    createdAt: '2025-08-10T10:03:00Z',
+  },
+  {
+    id: 'sc-05',
+    url: 'https://picsum.photos/seed/amcc5/1024/768',
+    alt: 'Contact — tablet',
+    width: 1024,
+    height: 768,
+    pageTitle: 'Contact',
+    createdAt: '2025-08-10T10:04:00Z',
+  },
+  {
+    id: 'sc-06',
+    url: 'https://picsum.photos/seed/amcc6/1200/800',
+    alt: 'Blog — full page',
+    width: 1200,
+    height: 800,
+    pageTitle: 'Blog',
+    createdAt: '2025-08-10T10:05:00Z',
+  },
+]
