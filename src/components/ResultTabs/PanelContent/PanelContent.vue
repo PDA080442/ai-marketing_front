@@ -12,7 +12,7 @@
           Metadata
         </v-expansion-panel-title>
         <v-expansion-panel-text class="pc-panel-text">
-          <MetadataTable :items="mockMetaTags" />
+          <MetadataTable />
         </v-expansion-panel-text>
       </v-expansion-panel>
       <v-expansion-panel rounded="lg" class="pc-panel">
@@ -21,7 +21,7 @@
           DOM Structure
         </v-expansion-panel-title>
         <v-expansion-panel-text class="pc-panel-text">
-          <DomTree :items="mockDomTree" />
+          <DomTree />
         </v-expansion-panel-text>
       </v-expansion-panel>
       <v-expansion-panel rounded="lg" class="pc-panel">
@@ -30,7 +30,7 @@
           Text from site
         </v-expansion-panel-title>
         <v-expansion-panel-text class="pc-panel-text">
-          <PageText :items="mockPageText" />
+          <PageText />
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -39,11 +39,8 @@
 
 <script setup lang="ts">
 import MetadataTable from './MetadataTable.vue'
-import { mockMetaTags } from '@/mocks/metadata.mocks'
 import PageText from './PageText.vue'
-import { mockPageText } from '@/mocks/page.text.mocks'
 import DomTree from './DomTree.vue'
-import { mockDomTree } from '@/mocks/dom.mocks'
 </script>
 
 <style scoped>
