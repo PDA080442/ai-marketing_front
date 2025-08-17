@@ -15,6 +15,18 @@
         {{ item.value }}
       </div>
     </template>
+    <v-snackbar
+      class="snackbar"
+      :color="snackbarColor"
+      v-model="snackbar"
+      location="top"
+      elevation="0"
+      transition="slide-y-transition"
+    >
+      <div class="snackbar-content">
+        <span>{{ snackbarText }}</span>
+      </div>
+    </v-snackbar>
   </v-data-table>
 </template>
 
@@ -22,6 +34,10 @@
 import { ref, onMounted } from 'vue'
 import type { MetaType } from '@/types/Panel/Metadata/metadata.types'
 import { getMetadata } from '@/composable/PanelContent/panelcontent.request'
+
+const snackbar = ref(false)
+const snackbarColor = ref<'success' | 'error'>('success')
+const snackbarText = ref('')
 
 const items = ref<MetaType[]>([])
 
@@ -36,6 +52,9 @@ onMounted(async () => {
     items.value = Array.isArray(response) ? response : [response]
   } catch (err) {
     console.error('Failed to load metadata:', err)
+    snackbar.value = true
+    snackbarColor.value = 'error'
+    snackbarText.value = 'An error has occurred - data not loaded. Please reload the page.'
   }
 })
 </script>

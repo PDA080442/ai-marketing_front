@@ -7,6 +7,18 @@
     <ul class="dt-tree">
       <DomNodeItem v-for="node in nodes" :key="node.id" :node="node" />
     </ul>
+    <v-snackbar
+      class="snackbar"
+      :color="snackbarColor"
+      v-model="snackbar"
+      location="top"
+      elevation="0"
+      transition="slide-y-transition"
+    >
+      <div class="snackbar-content">
+        <span>{{ snackbarText }}</span>
+      </div>
+    </v-snackbar>
   </div>
 </template>
 
@@ -16,6 +28,10 @@ import DomNodeItem from './DomNodeItem.vue'
 import { ref, onMounted } from 'vue'
 import { getDomStructure } from '@/composable/PanelContent/panelcontent.request'
 
+const snackbar = ref(false)
+const snackbarColor = ref<'success' | 'error'>('success')
+const snackbarText = ref('')
+
 const nodes = ref<DomNodeType[]>([])
 
 onMounted(async () => {
@@ -23,6 +39,9 @@ onMounted(async () => {
     const response = await getDomStructure()
     nodes.value = Array.isArray(response) ? response : [response]
   } catch (err) {
+    snackbar.value = true
+    snackbarColor.value = 'error'
+    snackbarText.value = 'An error has occurred - data not loaded. Please reload the page.'
     console.error('Failed to load DOM structure:', err)
   }
 })

@@ -48,6 +48,18 @@
           </v-btn>
         </div>
       </template>
+      <v-snackbar
+        class="snackbar"
+        :color="snackbarColor"
+        v-model="snackbar"
+        location="top"
+        elevation="0"
+        transition="slide-y-transition"
+      >
+        <div class="snackbar-content">
+          <span>{{ snackbarText }}</span>
+        </div>
+      </v-snackbar>
     </v-data-table>
   </v-container>
 </template>
@@ -57,12 +69,17 @@ import { onMounted, ref } from 'vue'
 import type { QueueItems } from '@/types/Queue/queue.types'
 import { getQueueLinks, cancelQueueLink } from '@/composable/Queue/queue.request'
 
+const snackbar = ref(false)
+const snackbarColor = ref<'success' | 'error'>('success')
+const snackbarText = ref('')
+
+const queueItems = ref<QueueItems[]>([])
+
 const headers = [
   { title: 'Link', key: 'url' },
   { title: 'Progress', key: 'progress', sortable: false },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
-const queueItems = ref<QueueItems[]>([])
 
 onMounted(async () => {
   const token = localStorage.getItem('tokenUser: ') || ''
@@ -73,6 +90,9 @@ onMounted(async () => {
     const response = await getQueueLinks(token)
     queueItems.value = response
   } catch (error) {
+    snackbar.value = true
+    snackbarColor.value = 'error'
+    snackbarText.value = 'An error has occurred - data not loaded. Please reload the page.'
     console.error(error)
     queueItems.value = []
   }
