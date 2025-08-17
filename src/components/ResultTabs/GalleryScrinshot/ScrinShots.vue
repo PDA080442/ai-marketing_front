@@ -38,9 +38,12 @@
           <div class="sg-lightbox-title">
             {{ currentItem?.pageTitle || currentItem?.alt }}
           </div>
-          <v-btn icon variant="text" @click="lightboxOpen = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
+          <div class="sg-lightbox-actions">
+            <DownloadButton />
+            <v-btn icon variant="text" @click="lightboxOpen = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </div>
         </div>
 
         <v-divider class="mb-2" />
@@ -67,6 +70,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { ScreenshotItem } from '@/types/Gallery/screenshot.types'
+import DownloadButton from './DownloadButton.vue'
 
 const props = defineProps<{ items: ScreenshotItem[] }>()
 
@@ -189,5 +193,11 @@ const openLightbox = (index: number) => {
   max-height: 80vh;
   object-fit: contain;
   display: block;
+}
+
+.sg-lightbox-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 </style>
