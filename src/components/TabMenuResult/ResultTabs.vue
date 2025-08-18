@@ -34,8 +34,9 @@ import { useRoute } from 'vue-router'
 import PanelContent from '@/components/ResultTabs/PanelContent/PanelContent.vue'
 import ListProblems from '@/components/ResultTabs/ListProblems.vue'
 import RecommendAI from '@/components/ResultTabs/RecommendAI.vue'
+import GalleryScrinshot from '../ResultTabs/GalleryScrinshot/GalleryScrinshot.vue'
 
-type TabValue = 'panel' | 'problem' | 'recommend'
+type TabValue = 'panel' | 'gallery' | 'problem' | 'recommend'
 
 interface TabItem {
   label: string
@@ -50,6 +51,12 @@ const tabs: TabItem[] = [
     value: 'panel',
     icon: 'mdi-view-dashboard-outline',
     component: PanelContent,
+  },
+  {
+    label: 'Gallery Screenshots',
+    value: 'gallery',
+    icon: 'mdi-image-album',
+    component: GalleryScrinshot,
   },
   {
     label: 'List Problems',
