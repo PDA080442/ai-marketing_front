@@ -1,7 +1,7 @@
 <template>
   <v-btn color="primary" variant="tonal" rounded="lg" class="download-btn" @click="handleDownload">
     <v-icon start>mdi-download</v-icon>
-    Download
+    Watch and Download
   </v-btn>
   <v-snackbar
     class="snackbar"
