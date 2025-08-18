@@ -17,7 +17,7 @@
               lazy-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
             >
               <template #placeholder>
-                <div class="sg-thumb-skeleton" />
+                <div class="sg-thumb-Sskeleton" />
               </template>
             </v-img>
           </div>
@@ -25,7 +25,6 @@
             <div class="sg-meta-title" :title="shot.pageTitle || shot.alt">
               {{ shot.pageTitle || shot.alt }}
             </div>
-            <div class="sg-meta-sub">{{ shot.width }}×{{ shot.height }}</div>
           </div>
         </v-card>
       </v-col>
