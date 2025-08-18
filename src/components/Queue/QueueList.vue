@@ -1,26 +1,26 @@
 <template>
   <v-container fluid class="queue-wrapper">
     <h1 class="queue-title">Processing Queue</h1>
+
     <v-data-table
       :headers="headers"
       :items="queueItems"
       item-key="id"
       class="elevation-4 rounded-xl overflow-hidden pa-2"
     >
-      <template v-slot:[`item.url`]="{ item }">
-        <div class="url-cell" :title="item.url">
+      <template v-slot:[`item.url`]="{ value }">
+        <div class="url-cell" :title="value">
           <v-icon size="15" class="link-icon" color="#1E88E5">mdi-link-variant</v-icon>
-          <a class="url-link" :href="item.url" target="_blank">
-            {{ item.url }}
+          <a class="url-link" :href="value" target="_blank" rel="noopener">
+            {{ value }}
           </a>
         </div>
       </template>
-      <template v-slot:[`item.progress`]="{ item }">
+
+      <template v-slot:[`item.progress`]="{ value, item }">
         <div class="status-cell">
-          <template v-if="item.progress.status !== 'done'">
-            <v-chip class="queued-chip" size="small" variant="elevated" color="#B0BEC5">
-              Queued
-            </v-chip>
+          <template v-if="value?.status !== 'done'">
+            <v-chip size="small" variant="elevated" color="#B0BEC5">Queued</v-chip>
           </template>
           <template v-else>
             <v-btn
@@ -35,10 +35,11 @@
           </template>
         </div>
       </template>
+
       <template v-slot:[`item.actions`]="{ item }">
         <div class="actions-cell">
           <v-btn
-            v-if="item.progress.status !== 'done'"
+            v-if="item.progress?.status !== 'done'"
             size="small"
             color="error"
             variant="tonal"
@@ -48,19 +49,20 @@
           </v-btn>
         </div>
       </template>
-      <v-snackbar
-        class="snackbar"
-        :color="snackbarColor"
-        v-model="snackbar"
-        location="top"
-        elevation="0"
-        transition="slide-y-transition"
-      >
-        <div class="snackbar-content">
-          <span>{{ snackbarText }}</span>
-        </div>
-      </v-snackbar>
     </v-data-table>
+
+    <v-snackbar
+      class="snackbar"
+      :color="snackbarColor"
+      v-model="snackbar"
+      location="top"
+      elevation="0"
+      transition="slide-y-transition"
+    >
+      <div class="snackbar-content">
+        <span>{{ snackbarText }}</span>
+      </div>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -76,24 +78,22 @@ const snackbarText = ref('')
 const queueItems = ref<QueueItems[]>([])
 
 const headers = [
-  { title: 'Link', key: 'url' },
+  { title: 'Link', key: 'url', sortable: false },
   { title: 'Progress', key: 'progress', sortable: false },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
 
 onMounted(async () => {
   const token = localStorage.getItem('tokenUser: ') || ''
-  if (!token) {
-    return
-  }
+  if (!token) return
   try {
-    const response = await getQueueLinks(token)
-    queueItems.value = response
+    const data = await getQueueLinks(token) // QueueItems[]
+    queueItems.value = data
   } catch (error) {
+    console.error(error)
     snackbar.value = true
     snackbarColor.value = 'error'
     snackbarText.value = 'An error has occurred - data not loaded. Please reload the page.'
-    console.error(error)
     queueItems.value = []
   }
 })
@@ -140,16 +140,5 @@ const onCancel = async (item: QueueItems) => {
 .url-link:hover {
   text-decoration: underline;
   background: none !important;
-}
-
-.bar-label {
-  font-size: 15px;
-  font-weight: 800;
-  padding: 5px;
-}
-
-.label-processing,
-.label-done {
-  color: #fff;
 }
 </style>

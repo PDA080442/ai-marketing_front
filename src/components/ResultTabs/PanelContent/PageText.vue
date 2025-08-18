@@ -5,8 +5,14 @@
     </header>
     <v-divider class="mb-4" />
     <div class="pt-content">
-      <v-card v-for="block in items" :key="block.id" class="pt-block" elevation="2" rounded="lg">
-        <p class="pt-text">{{ block.content }}</p>
+      <v-card
+        v-for="(text, idx) in items[0]?.content || []"
+        :key="idx"
+        class="pt-block"
+        elevation="2"
+        rounded="lg"
+      >
+        <p class="pt-text">{{ text }}</p>
       </v-card>
     </div>
     <v-snackbar
