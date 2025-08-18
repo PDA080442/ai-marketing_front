@@ -58,7 +58,6 @@
         location="top"
         elevation="0"
         transition="slide-y-transition"
-        :timeout="600000"
       >
         <div class="snackbar-content">
           <span>{{ snackbarText }}</span>
