@@ -87,7 +87,7 @@ onMounted(async () => {
   const token = localStorage.getItem('tokenUser: ') || ''
   if (!token) return
   try {
-    const data = await getQueueLinks(token) // QueueItems[]
+    const data = await getQueueLinks(token)
     queueItems.value = data
   } catch (error) {
     console.error(error)

@@ -1,11 +1,11 @@
 export interface ScreenshotItem {
   id: string
-  url: string // ссылка на изображение (локальная или CDN)
+  url: string
   alt: string
   width: number
   height: number
   pageTitle?: string
-  createdAt?: string // ISO-строка времени, если нужно показывать дату
+  createdAt?: string
 }
 
 export interface ScreenshotDownload {

@@ -29,8 +29,6 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <!-- Lightbox -->
     <v-dialog v-model="lightboxOpen" max-width="1100" transition="fade-transition">
       <v-card rounded="xl" elevation="8">
         <div class="sg-lightbox-head">
