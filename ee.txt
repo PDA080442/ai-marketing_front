@@ -4,18 +4,28 @@
   </header>
 
   <v-divider class="mb-4" />
-  <v-data-table :headers="headers" :items="items" item-key="id" class="container-table">
-    <template v-slot:[`item.name`]="{ item }">
+
+  <v-data-table
+    :headers="headers"
+    :items="items"
+    item-key="id"
+    class="container-table"
+  >
+    <!-- колонка name -->
+    <template #item.name="{ item }">
       <div class="table-name">
         <v-chip class="table-chip" size="small" label>{{ item.name }}</v-chip>
       </div>
     </template>
-    <template v-slot:[`item.value`]="{ item }">
+
+    <!-- колонка value -->
+    <template #item.value="{ item }">
       <div class="table-value" :title="item.value">
         {{ item.value }}
       </div>
     </template>
   </v-data-table>
+
   <v-snackbar
     class="snackbar"
     :color="snackbarColor"
@@ -49,6 +59,7 @@ const headers = [
 onMounted(async () => {
   try {
     const response = await getMetadata()
+    // ожидаем массив от бэка
     items.value = response
   } catch (err) {
     console.error('Failed to load metadata:', err)

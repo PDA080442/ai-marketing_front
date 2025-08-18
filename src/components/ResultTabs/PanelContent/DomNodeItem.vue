@@ -2,15 +2,16 @@
   <li class="dt-node">
     <div class="dt-node-line">
       <v-icon size="16" color="#0a7cff" class="mr-1">mdi-code-tags</v-icon>
-      <span class="dt-tag">&lt;{{ props.node.tag }}&gt;</span>
+      <span class="dt-tag">&lt;{{ props.node.tag }}</span>
       <span
         v-if="props.node.attributes && Object.keys(props.node.attributes).length"
         class="dt-attrs"
       >
-        <span v-for="(val, key) in props.node.attributes" :key="key" class="dt-attr">
-          {{ key }}="{{ val }}
-        </span>
+        <template v-for="(val, key) in props.node.attributes" :key="key">
+          {{ ' ' + key }}="{{ val }}"
+        </template>
       </span>
+      <span class="dt-tag">&gt;</span>
     </div>
     <ul v-if="props.node.children?.length" class="dt-children">
       <DomNodeItem v-for="child in props.node.children" :key="child.id" :node="child" />
@@ -34,6 +35,8 @@ const props = defineProps<{ node: DomNodeType }>()
   align-items: center;
   font-size: 14px;
   color: #1f2937;
+  flex-wrap: wrap;
+  word-break: break-all;
 }
 
 .dt-tag {

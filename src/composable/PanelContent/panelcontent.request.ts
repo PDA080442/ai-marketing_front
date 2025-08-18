@@ -5,9 +5,9 @@ import { useApi } from '../useApi'
 
 const { call } = useApi('/panel')
 
-export async function getMetadata(): Promise<MetaType> {
+export async function getMetadata(): Promise<MetaType[]> {
   const response = await call('/metadata/', {}, 'GET')
-  return response as MetaType
+  return response as MetaType[]
 }
 
 export async function getDomStructure(): Promise<DomNodeType> {
