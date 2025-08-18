@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import PanelContent from '@/components/ResultTabs/PanelContent.vue'
+import PanelContent from '@/components/ResultTabs/PanelContent/PanelContent.vue'
 import ListProblems from '@/components/ResultTabs/ListProblems.vue'
 import RecommendAI from '@/components/ResultTabs/RecommendAI.vue'
 
