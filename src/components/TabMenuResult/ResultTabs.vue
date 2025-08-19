@@ -6,6 +6,16 @@
         <p class="tabs-subtitle">Insights, issues, and AI recommendations</p>
       </div>
 
+      <!-- 🔗 Share banner -->
+      <ShareBanner
+        :mode="mode"
+        :result-id="resultId"
+        :token="shareToken"
+        title="Result access"
+        @created="onCreated"
+        @revoked="onRevoked"
+      />
+
       <v-tabs v-model="activeIndex" class="tabs" grow selected-class="tab--active">
         <v-tab v-for="tab in tabs" :key="tab.value" class="tab">
           <v-icon size="18" class="mr-2">{{ tab.icon }}</v-icon>
@@ -35,6 +45,9 @@ import PanelContent from '@/components/ResultTabs/PanelContent/PanelContent.vue'
 import ListProblems from '@/components/ResultTabs/ListProblems.vue'
 import RecommendAI from '@/components/ResultTabs/RecommendAI.vue'
 import GalleryScreenshot from '../ResultTabs/GalleryScreenshot/GalleryScreenshot.vue'
+
+import ShareBanner from '@/components/share/ShareBanner.vue'
+import { useResultShare } from '@/composable/Share/useResultShare'
 
 type TabValue = 'panel' | 'gallery' | 'problem' | 'recommend'
 
@@ -88,6 +101,9 @@ watch(
     if (idx !== -1) activeIndex.value = idx
   },
 )
+
+// 🔗 Share hook
+const { mode, shareToken, resultId, onCreated, onRevoked } = useResultShare()
 </script>
 
 <style scoped>
