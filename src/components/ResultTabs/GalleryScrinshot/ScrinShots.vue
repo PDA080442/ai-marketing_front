@@ -29,38 +29,12 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-dialog v-model="lightboxOpen" max-width="1100" transition="fade-transition">
-      <v-card rounded="xl" elevation="8">
-        <div class="sg-lightbox-head">
-          <div class="sg-lightbox-title">
-            {{ currentItem?.pageTitle || currentItem?.alt }}
-          </div>
-          <div class="sg-lightbox-actions">
-            <DownloadButton v-if="currentItem" :id="currentItem.id" />
-            <v-btn icon variant="text" @click="lightboxOpen = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </div>
-        </div>
-
-        <v-divider class="mb-2" />
-
-        <v-carousel
-          v-model="carouselIndex"
-          hide-delimiter-background
-          show-arrows="hover"
-          height="auto"
-          hide-delimiters
-          class="sg-carousel"
-        >
-          <v-carousel-item v-for="shot in items" :key="shot.id">
-            <div class="sg-lightbox-img-wrap">
-              <img class="sg-lightbox-img" :src="shot.url" :alt="shot.alt" />
-            </div>
-          </v-carousel-item>
-        </v-carousel>
-      </v-card>
-    </v-dialog>
+    <ScreenshotLightbox
+      v-model:lightboxOpen="lightboxOpen"
+      v-model:carouselIndex="carouselIndex"
+      :items="items"
+      :currentItem="currentItem"
+    />
     <v-snackbar
       class="snackbar"
       :color="snackbarColor"
@@ -79,8 +53,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import type { ScreenshotItem } from '@/types/Gallery/gallery.types'
-import DownloadButton from './DownloadButton.vue'
 import { getGalleryScreen } from '@/composable/Gallery/gallery.request'
+import ScreenshotLightbox from './ScreenshotLightbox.vue'
 
 const items = ref<ScreenshotItem[]>([])
 const lightboxOpen = ref(false)
