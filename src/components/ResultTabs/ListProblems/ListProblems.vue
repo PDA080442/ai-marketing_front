@@ -16,9 +16,7 @@
       </v-window-item>
 
       <v-window-item value="text">
-        <!-- ВАЖНО: PageText.vue НЕ МЕНЯЕМ -->
         <PageText />
-        <!-- При желании, ниже можно показать только текстовые проблемы: -->
         <div class="mt-6">
           <v-divider class="mb-3" />
           <h3 class="section-title">Text-related problems (for context)</h3>
@@ -39,12 +37,12 @@ import ProblemScoreCircle from './ProblemScoreCircle.vue'
 import PageText from '../PanelContent/PageText.vue'
 import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
 import type { ProblemItem } from '@/types/Problems/problems.types'
-import { mockProblems } from '@/mocks/problems.mock'
+import { getProblemsList, getProblemsScore } from '@/composable/ListProblems/problems.request'
 
 const tab = ref<'tables' | 'text'>('tables')
 
 const problems = ref<ProblemItem[]>([])
-const score = ref<number>(40) // можно посчитать по формуле/с бэка
+const score = ref<number>(0) // можно посчитать по формуле/с бэка
 
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')
@@ -52,8 +50,11 @@ const snackbarText = ref('')
 
 onMounted(async () => {
   try {
-    // TODO: заменить на реальный API
-    problems.value = mockProblems
+    const scoreResp = await getProblemsScore()
+    score.value = Number(scoreResp?.score ?? 0)
+
+    const list = await getProblemsList()
+    problems.value = Array.isArray(list) ? list : []
   } catch (err) {
     snackbar.value = true
     snackbarColor.value = 'error'
@@ -63,7 +64,9 @@ onMounted(async () => {
 })
 
 const textProblems = computed<ProblemItem[]>(() =>
-  problems.value.filter((p) => ['Content', 'SEO', 'UX'].includes(p.category) || !!p.excerpt),
+  problems.value.filter(
+    (problems) => ['Content', 'SEO', 'UX'].includes(problems.category) || !!problems.excerpt,
+  ),
 )
 </script>
 
