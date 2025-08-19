@@ -1,11 +1,11 @@
 <template>
   <v-container fluid class="pc-wrapper">
-    <ScrinShots />
+    <ScreenShots />
   </v-container>
 </template>
 
 <script setup lang="ts">
-import ScrinShots from './ScrinShots.vue'
+import ScreenShots from './ScreenShots.vue'
 </script>
 
 <style scoped>

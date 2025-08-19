@@ -34,7 +34,7 @@ import { useRoute } from 'vue-router'
 import PanelContent from '@/components/ResultTabs/PanelContent/PanelContent.vue'
 import ListProblems from '@/components/ResultTabs/ListProblems.vue'
 import RecommendAI from '@/components/ResultTabs/RecommendAI.vue'
-import GalleryScrinshot from '../ResultTabs/GalleryScrinshot/GalleryScrinshot.vue'
+import GalleryScreenshot from '../ResultTabs/GalleryScreenshot/GalleryScreenshot.vue'
 
 type TabValue = 'panel' | 'gallery' | 'problem' | 'recommend'
 
@@ -56,7 +56,7 @@ const tabs: TabItem[] = [
     label: 'Gallery Screenshots',
     value: 'gallery',
     icon: 'mdi-image-album',
-    component: GalleryScrinshot,
+    component: GalleryScreenshot,
   },
   {
     label: 'List Problems',
