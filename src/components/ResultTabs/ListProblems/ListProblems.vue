@@ -5,9 +5,9 @@
       <ProblemScoreCircle :score="score" />
     </header>
 
-    <v-tabs v-model="tab" class="mb-3">
-      <v-tab value="tables">Problems Table</v-tab>
-      <v-tab value="text">Page Text</v-tab>
+    <v-tabs v-model="tab" class="problem-tabs">
+      <v-tab value="tables" class="tab">Problems Table</v-tab>
+      <v-tab value="text" class="tab">Page Text</v-tab>
     </v-tabs>
 
     <v-window v-model="tab">
@@ -44,7 +44,7 @@ import { mockProblems } from '@/mocks/problems.mock'
 const tab = ref<'tables' | 'text'>('tables')
 
 const problems = ref<ProblemItem[]>([])
-const score = ref<number>(72) // можно посчитать по формуле/с бэка
+const score = ref<number>(40) // можно посчитать по формуле/с бэка
 
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')
@@ -72,19 +72,57 @@ const textProblems = computed<ProblemItem[]>(() =>
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
 }
+
 .lp-title {
+  padding-left: 16px;
   font-weight: 800;
-  font-size: 22px;
+  font-size: 25px;
   color: #0a7cff;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
+
 .section-title {
   font-size: 16px;
   font-weight: 700;
 }
-.mt-6 {
-  margin-top: 24px;
+
+.problem-tabs {
+  margin-bottom: 30px;
+  padding-left: 16px;
+}
+
+.tab {
+  position: relative;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #425466;
+  border-top-left-radius: 14px !important;
+  border-top-right-radius: 14px !important;
+  padding: 10px 18px;
+  margin: 0px 6px 2px;
+  transition:
+    color 0.5s ease,
+    background-color 0.5s ease,
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+  outline: none;
+}
+
+.tab:hover {
+  background: rgba(10, 124, 255, 0.08);
+  color: #0a7cff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(10, 124, 255, 0.1);
+}
+
+.tab--active {
+  color: #0a7cff !important;
+  background: rgba(10, 124, 255, 0.1);
+}
+
+.tab--active .tab-underline {
+  opacity: 1;
+  transform: scaleX(1);
 }
 </style>

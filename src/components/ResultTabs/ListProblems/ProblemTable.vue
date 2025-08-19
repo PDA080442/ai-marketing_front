@@ -1,7 +1,7 @@
 <template>
-  <v-data-table :headers="headers" :items="problems" item-key="id" class="elevation-1">
+  <v-data-table :headers="headers" :items="problems" item-key="id" class="table elevation-5">
     <template v-slot:[`item.severity`]="{ item }">
-      <v-chip :color="severityColor(item.severity)" size="small" variant="flat">
+      <v-chip :color="severityColor(item.severity)" variant="flat">
         {{ item.severity }}
       </v-chip>
     </template>
@@ -59,6 +59,10 @@ function short(text: string, max = 80): string {
 </script>
 
 <style scoped>
+.table {
+  border-radius: 14px;
+}
+
 .truncate {
   max-width: 420px;
   white-space: nowrap;

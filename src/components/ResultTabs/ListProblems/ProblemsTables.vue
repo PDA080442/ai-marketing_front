@@ -1,19 +1,21 @@
 <template>
   <div>
-    <v-card
-      v-for="(group, cat) in grouped"
-      :key="String(cat)"
-      elevation="2"
-      class="pa-3"
-      rounded="lg"
-    >
-      <div class="d-flex align-center justify-space-between mb-2">
+    <v-card v-for="(group, cat) in grouped" :key="String(cat)" elevation="0" class="pa-5">
+      <div class="title-table">
         <div class="title">{{ cat }} ({{ group.length }})</div>
-        <div class="d-flex gap-2">
-          <v-chip size="x-small" variant="flat">critical: {{ countBy(group, 'critical') }}</v-chip>
-          <v-chip size="x-small" variant="flat">high: {{ countBy(group, 'high') }}</v-chip>
-          <v-chip size="x-small" variant="flat">medium: {{ countBy(group, 'medium') }}</v-chip>
-          <v-chip size="x-small" variant="flat">low: {{ countBy(group, 'low') }}</v-chip>
+        <div class="type-errors">
+          <v-chip class="type-error" size="x-small" variant="flat"
+            >critical: {{ countBy(group, 'critical') }}</v-chip
+          >
+          <v-chip class="type-error" size="x-small" variant="flat"
+            >high: {{ countBy(group, 'high') }}</v-chip
+          >
+          <v-chip class="type-error" size="x-small" variant="flat"
+            >medium: {{ countBy(group, 'medium') }}</v-chip
+          >
+          <v-chip class="type-error" size="x-small" variant="flat"
+            >low: {{ countBy(group, 'low') }}</v-chip
+          >
         </div>
       </div>
       <ProblemTable :problems="group" />
@@ -47,23 +49,28 @@ function countBy(items: ProblemItem[], s: ProblemSeverity): number {
 </script>
 
 <style scoped>
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
+.title-table {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
 }
-@media (min-width: 1100px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-  }
+
+.type-errors {
+  display: flex;
+  gap: 12px;
 }
+
+.type-error {
+  background-color: #0a7cff;
+  font-weight: 600;
+  font-size: 12px !important;
+}
+
 .title {
-  font-weight: 700;
-  font-size: 16px;
-}
-.gap-2 {
-  gap: 8px;
-}
-.gap-6 {
-  gap: 24px;
+  font-weight: 800;
+  color: #0a7cff;
+  font-size: 20px;
+  letter-spacing: 0.5px;
 }
 </style>
