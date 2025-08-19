@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-card v-for="(group, cat) in grouped" :key="String(cat)" elevation="0" class="pa-5">
+    <v-card
+      v-for="(group, cat) in grouped"
+      :key="String(cat)"
+      rounded="xl"
+      elevation="0"
+      class="tables-card"
+    >
       <div class="title-table">
         <div class="title">{{ cat }} ({{ group.length }})</div>
         <div class="type-errors">
@@ -49,6 +55,13 @@ function countBy(items: ProblemItem[], s: ProblemSeverity): number {
 </script>
 
 <style scoped>
+.tables-card {
+  padding: 15px;
+  background: #f5f7fa;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
 .title-table {
   display: flex;
   align-items: center;

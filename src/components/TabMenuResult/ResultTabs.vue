@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="result-wrapper">
-    <v-card class="pa-5" elevation="12" rounded="xl">
+    <v-card class="result-card" elevation="12" rounded="xl">
       <div>
         <h1 class="tabs-title">Analysis Results</h1>
         <p class="tabs-subtitle">Insights, issues, and AI recommendations</p>
@@ -97,6 +97,11 @@ watch(
   padding: clamp(24px, 4vw, 48px);
   position: relative;
   overflow: clip;
+}
+
+.result-card {
+  padding: 25px;
+  background: #f5f7fa;
 }
 
 .tabs-title {
