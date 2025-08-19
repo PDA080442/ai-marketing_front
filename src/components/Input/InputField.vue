@@ -51,18 +51,7 @@
       >
         Analyze
       </v-btn>
-      <v-snackbar
-        class="snackbar"
-        :color="snackbarColor"
-        v-model="snackbar"
-        location="top"
-        elevation="0"
-        transition="slide-y-transition"
-      >
-        <div class="snackbar-content">
-          <span>{{ snackbarText }}</span>
-        </div>
-      </v-snackbar>
+      <BaseSnackbar v-model="snackbar" :color="snackbarColor" :text="snackbarText" />
     </v-card>
   </v-container>
 </template>
@@ -72,6 +61,7 @@ import { reactive, ref } from 'vue'
 import type { InputUrl, TokenUser } from '@/types/Input/input.types'
 import { postUrl } from '@/composable/Input/input.request'
 import { useRouter } from 'vue-router'
+import BaseSnackbar from '../SnackBar/BaseSnackbar.vue'
 
 const router = useRouter()
 const snackbar = ref(false)

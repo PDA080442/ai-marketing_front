@@ -3,24 +3,14 @@
     <v-icon start>mdi-download</v-icon>
     Watch and Download
   </v-btn>
-  <v-snackbar
-    class="snackbar"
-    :color="snackbarColor"
-    v-model="snackbar"
-    location="top"
-    elevation="0"
-    transition="slide-y-transition"
-  >
-    <div class="snackbar-content">
-      <span>{{ snackbarText }}</span>
-    </div>
-  </v-snackbar>
+  <BaseSnackbar v-model="snackbar" :color="snackbarColor" :text="snackbarText" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { downloadScreenshot } from '@/composable/Gallery/gallery.request'
 import type { ScreenshotDownload } from '@/types/Gallery/gallery.types'
+import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
 
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')

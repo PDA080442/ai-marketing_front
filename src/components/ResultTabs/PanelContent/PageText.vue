@@ -15,18 +15,7 @@
         <p class="pt-text">{{ text }}</p>
       </v-card>
     </div>
-    <v-snackbar
-      class="snackbar"
-      :color="snackbarColor"
-      v-model="snackbar"
-      location="top"
-      elevation="0"
-      transition="slide-y-transition"
-    >
-      <div class="snackbar-content">
-        <span>{{ snackbarText }}</span>
-      </div>
-    </v-snackbar>
+    <BaseSnackbar v-model="snackbar" :color="snackbarColor" :text="snackbarText" />
   </div>
 </template>
 
@@ -34,6 +23,7 @@
 import { ref, onMounted } from 'vue'
 import type { PageText } from '@/types/Panel/Text/text.types'
 import { getTextPage } from '@/composable/PanelContent/panelcontent.request'
+import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
 
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')

@@ -51,18 +51,7 @@
       </template>
     </v-data-table>
 
-    <v-snackbar
-      class="snackbar"
-      :color="snackbarColor"
-      v-model="snackbar"
-      location="top"
-      elevation="0"
-      transition="slide-y-transition"
-    >
-      <div class="snackbar-content">
-        <span>{{ snackbarText }}</span>
-      </div>
-    </v-snackbar>
+    <BaseSnackbar v-model="snackbar" :color="snackbarColor" :text="snackbarText" />
   </v-container>
 </template>
 
@@ -70,6 +59,7 @@
 import { onMounted, ref } from 'vue'
 import type { QueueItems } from '@/types/Queue/queue.types'
 import { getQueueLinks, cancelQueueLink } from '@/composable/Queue/queue.request'
+import BaseSnackbar from '../SnackBar/BaseSnackbar.vue'
 
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')

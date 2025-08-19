@@ -7,18 +7,7 @@
     <ul class="dt-tree">
       <DomNodeItem v-for="node in nodes" :key="node.id" :node="node" />
     </ul>
-    <v-snackbar
-      class="snackbar"
-      :color="snackbarColor"
-      v-model="snackbar"
-      location="top"
-      elevation="0"
-      transition="slide-y-transition"
-    >
-      <div class="snackbar-content">
-        <span>{{ snackbarText }}</span>
-      </div>
-    </v-snackbar>
+    <BaseSnackbar v-model="snackbar" :color="snackbarColor" :text="snackbarText" />
   </div>
 </template>
 
@@ -27,6 +16,7 @@ import type { DomNodeType } from '@/types/Panel/DOM/dom.types'
 import DomNodeItem from './DomNodeItem.vue'
 import { ref, onMounted } from 'vue'
 import { getDomStructure } from '@/composable/PanelContent/panelcontent.request'
+import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
 
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')

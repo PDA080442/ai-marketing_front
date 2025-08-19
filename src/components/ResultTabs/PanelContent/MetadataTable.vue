@@ -16,24 +16,14 @@
       </div>
     </template>
   </v-data-table>
-  <v-snackbar
-    class="snackbar"
-    :color="snackbarColor"
-    v-model="snackbar"
-    location="top"
-    elevation="0"
-    transition="slide-y-transition"
-  >
-    <div class="snackbar-content">
-      <span>{{ snackbarText }}</span>
-    </div>
-  </v-snackbar>
+  <BaseSnackbar v-model="snackbar" :color="snackbarColor" :text="snackbarText" />
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import type { MetaType } from '@/types/Panel/Metadata/metadata.types'
 import { getMetadata } from '@/composable/PanelContent/panelcontent.request'
+import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
 
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')

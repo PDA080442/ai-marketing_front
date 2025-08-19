@@ -16,18 +16,7 @@
       :items="items"
       :currentItem="currentItem"
     />
-    <v-snackbar
-      class="snackbar"
-      :color="snackbarColor"
-      v-model="snackbar"
-      location="top"
-      elevation="0"
-      transition="slide-y-transition"
-    >
-      <div class="snackbar-content">
-        <span>{{ snackbarText }}</span>
-      </div>
-    </v-snackbar>
+    <BaseSnackbar v-model="snackbar" :color="snackbarColor" :text="snackbarText" />
   </div>
 </template>
 
@@ -37,6 +26,7 @@ import type { ScreenshotItem } from '@/types/Gallery/gallery.types'
 import { getGalleryScreen } from '@/composable/Gallery/gallery.request'
 import ScreenshotLightbox from './ScreenshotLightbox.vue'
 import ScreenshotCard from './ScreenshotCard.vue'
+import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
 
 const items = ref<ScreenshotItem[]>([])
 const lightboxOpen = ref(false)
