@@ -38,7 +38,7 @@
 import { ref, computed, onMounted } from 'vue'
 import RecommendationCardList from './RecommendationCardList.vue'
 import { RECO_CATEGORIES } from '@/utils/Recommendations/constants'
-import { recommendationsListMock } from '@/mocks/recommendations.mocks'
+import { getRecommendationsList } from '@/composable/Recommendations/recommendations.request'
 import type { RecommendationItem } from '@/types/Recommendations/recommendations.types'
 
 const tab = ref<'list' | 'text'>('list')
@@ -53,6 +53,7 @@ const filtered = computed(() =>
     : list.value.filter((r) => r.category === activeCategory.value),
 )
 
+// сортировка по приоритету для карточек
 const order: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3, info: 4 }
 const filteredFlat = computed(() =>
   [...filtered.value].sort((a, b) => (order[a.priority] ?? 99) - (order[b.priority] ?? 99)),
@@ -60,17 +61,11 @@ const filteredFlat = computed(() =>
 
 const textOnly = computed(() => list.value.filter((r) => !!r.excerpt))
 
-const snackbar = ref(false)
-const snackbarColor = ref<'success' | 'error' | 'info'>('success')
-const snackbarText = ref('')
-
-onMounted(() => {
+onMounted(async () => {
   try {
-    list.value = recommendationsListMock
+    const items = await getRecommendationsList()
+    list.value = Array.isArray(items) ? items : []
   } catch (e) {
-    snackbar.value = true
-    snackbarColor.value = 'error'
-    snackbarText.value = 'Failed to load recommendations.'
     console.error(e)
   }
 })
