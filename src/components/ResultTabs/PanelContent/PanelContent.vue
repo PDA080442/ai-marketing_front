@@ -6,31 +6,18 @@
     </header>
     <v-divider class="mb-4" />
     <v-expansion-panels multiple class="pc-panels">
-      <v-expansion-panel rounded="lg" class="pc-panel">
+      <v-expansion-panel
+        v-for="section in sections"
+        :key="section.value"
+        rounded="lg"
+        class="pc-panel"
+      >
         <v-expansion-panel-title class="pc-panel-title" expand-icon="mdi-chevron-down">
-          <v-icon size="18" class="mr-2">mdi-file-document-outline</v-icon>
-          Metadata
+          <v-icon size="18" class="mr-2">{{ section.icon }}</v-icon>
+          {{ section.label }}
         </v-expansion-panel-title>
         <v-expansion-panel-text class="pc-panel-text">
-          <MetadataTable />
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-      <v-expansion-panel rounded="lg" class="pc-panel">
-        <v-expansion-panel-title class="pc-panel-title" expand-icon="mdi-chevron-down">
-          <v-icon size="18" class="mr-2">mdi-text-box-outline</v-icon>
-          DOM Structure
-        </v-expansion-panel-title>
-        <v-expansion-panel-text class="pc-panel-text">
-          <DomTree />
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-      <v-expansion-panel rounded="lg" class="pc-panel">
-        <v-expansion-panel-title class="pc-panel-title" expand-icon="mdi-chevron-down">
-          <v-icon size="18" class="mr-2">mdi-format-header-pound</v-icon>
-          Text from site
-        </v-expansion-panel-title>
-        <v-expansion-panel-text class="pc-panel-text">
-          <PageText />
+          <component :is="section.component" />
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -41,6 +28,37 @@
 import MetadataTable from './MetadataTable.vue'
 import PageText from './PageText.vue'
 import DomTree from './DomTree.vue'
+type SectionValue = 'metadata' | 'dom' | 'text'
+
+interface SectionItem {
+  value: SectionValue
+  label: string
+  icon: string
+  component: object
+}
+
+const sections: SectionItem[] = [
+  {
+    value: 'metadata',
+    label: 'Metadata',
+    icon: 'mdi-file-document-outline',
+    component: MetadataTable,
+  },
+
+  {
+    value: 'dom',
+    label: 'DOM Structure',
+    icon: 'mdi-text-box-outline',
+    component: DomTree,
+  },
+
+  {
+    value: 'text',
+    label: 'Text from site',
+    icon: 'mdi-format-header-pound',
+    component: PageText,
+  },
+]
 </script>
 
 <style scoped>
