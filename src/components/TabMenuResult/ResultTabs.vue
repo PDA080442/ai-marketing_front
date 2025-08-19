@@ -33,7 +33,7 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import PanelContent from '@/components/ResultTabs/PanelContent/PanelContent.vue'
 import ListProblems from '@/components/ResultTabs/ListProblems.vue'
-import RecommendAI from '@/components/ResultTabs/RecommendAI.vue'
+import ListRecommendations from '../ResultTabs/Recommendation/ListRecommendations.vue'
 import GalleryScreenshot from '../ResultTabs/GalleryScreenshot/GalleryScreenshot.vue'
 
 type TabValue = 'panel' | 'gallery' | 'problem' | 'recommend'
@@ -68,7 +68,7 @@ const tabs: TabItem[] = [
     label: 'Recommendation from AI',
     value: 'recommend',
     icon: 'mdi-robot-outline',
-    component: RecommendAI,
+    component: ListRecommendations,
   },
 ]
 
