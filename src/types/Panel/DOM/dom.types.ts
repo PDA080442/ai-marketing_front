@@ -1,6 +1,8 @@
+export type HtmlTagName = keyof HTMLElementTagNameMap
+
 export interface DomNodeType {
   id: string
-  tag: string
+  tag: HtmlTagName
   attributes?: Record<string, string>
   children?: DomNodeType[]
 }
