@@ -53,59 +53,109 @@ function priorityStyle(p: RecommendationPriority) {
 </script>
 
 <style scoped>
+/* Контейнер списка */
 .reco-list {
-  padding: 10px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
+/* Карточка рекомендации */
 .reco-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px 20px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f4f9ff 0%, #eef6ff 100%);
+  border: 1px solid #d7e3ff;
+  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.08);
+  padding: 16px 18px;
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
 }
 .reco-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(16, 24, 40, 0.12);
+  border-color: #c7d6ff;
 }
 
+/* Шапка карточки */
 .card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e6eefc;
 }
 
+/* Заголовок */
 .title {
-  font-weight: 700;
-  font-size: 1rem;
-  color: #0f172a;
   margin: 0;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  color: #0a7cff;
 }
 
+/* Чип приоритета (фон и цвет задаются inline через :style)
+   здесь — лишь типографика/пилюля/тень */
+.priority {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px !important;
+  border-radius: 999px;
+  font-weight: 800 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(16, 24, 40, 0.12);
+}
+
+/* Текст детали */
 .details {
-  font-size: 0.9rem;
-  color: #475569;
-  margin: 4px 0 12px;
+  margin: 6px 0 12px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #425466;
 }
 
+/* Низ карточки */
 .meta {
   display: flex;
   gap: 16px;
-  font-size: 0.85rem;
+  align-items: center;
+  font-size: 0.88rem;
   color: #64748b;
 }
 
+/* Ссылка на фрагмент */
 .excerpt-link {
   cursor: pointer;
   color: #0a7cff;
-  font-weight: 600;
+  font-weight: 700;
+  text-underline-offset: 3px;
+  transition:
+    color 0.15s ease,
+    text-decoration-color 0.15s ease;
 }
 .excerpt-link:hover {
   text-decoration: underline;
+}
+.excerpt-link:focus-visible {
+  outline: 2px solid #0a7cff;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Небольшая адаптивность */
+@media (min-width: 1400px) {
+  .reco-list {
+    gap: 16px;
+  }
+  .reco-card {
+    padding: 18px 22px;
+  }
 }
 </style>
