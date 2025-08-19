@@ -1,20 +1,15 @@
 <template>
   <div>
-    <!-- HEADER -->
     <header class="lp-header">
       <h1 class="lp-title">Recommendations</h1>
     </header>
-
-    <!-- TABS -->
     <v-tabs v-model="tab" class="problem-tabs">
       <v-tab value="list" class="tab">Recommendations List</v-tab>
       <v-tab value="text" class="tab">Page Text</v-tab>
     </v-tabs>
 
     <v-window v-model="tab">
-      <!-- LIST TAB -->
       <v-window-item value="list">
-        <!-- Категории-фильтры -->
         <div class="filters">
           <v-chip
             v-for="cat in categoriesWithAll"
@@ -29,13 +24,10 @@
           </v-chip>
         </div>
 
-        <!-- Карточки -->
         <RecommendationCardList :items="filteredFlat" />
       </v-window-item>
 
-      <!-- TEXT TAB -->
       <v-window-item value="text">
-        <!-- Только рекомендации с excerpt -->
         <RecommendationCardList :items="textOnly" />
       </v-window-item>
     </v-window>
@@ -61,7 +53,6 @@ const filtered = computed(() =>
     : list.value.filter((r) => r.category === activeCategory.value),
 )
 
-// сортировка по приоритету для карточек
 const order: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3, info: 4 }
 const filteredFlat = computed(() =>
   [...filtered.value].sort((a, b) => (order[a.priority] ?? 99) - (order[b.priority] ?? 99)),

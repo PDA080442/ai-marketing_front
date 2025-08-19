@@ -53,7 +53,6 @@ function priorityStyle(p: RecommendationPriority) {
 </script>
 
 <style scoped>
-/* Контейнер списка */
 .reco-list {
   padding: 8px 12px;
   display: flex;
@@ -61,7 +60,6 @@ function priorityStyle(p: RecommendationPriority) {
   gap: 14px;
 }
 
-/* Карточка рекомендации */
 .reco-card {
   border-radius: 14px;
   background: linear-gradient(180deg, #f4f9ff 0%, #eef6ff 100%);
@@ -79,7 +77,6 @@ function priorityStyle(p: RecommendationPriority) {
   border-color: #c7d6ff;
 }
 
-/* Шапка карточки */
 .card-head {
   display: flex;
   align-items: center;
@@ -89,7 +86,6 @@ function priorityStyle(p: RecommendationPriority) {
   border-bottom: 1px solid #e6eefc;
 }
 
-/* Заголовок */
 .title {
   margin: 0;
   font-weight: 800;
@@ -98,8 +94,6 @@ function priorityStyle(p: RecommendationPriority) {
   color: #0a7cff;
 }
 
-/* Чип приоритета (фон и цвет задаются inline через :style)
-   здесь — лишь типографика/пилюля/тень */
 .priority {
   display: inline-flex;
   align-items: center;
@@ -113,7 +107,6 @@ function priorityStyle(p: RecommendationPriority) {
   box-shadow: 0 2px 6px rgba(16, 24, 40, 0.12);
 }
 
-/* Текст детали */
 .details {
   margin: 6px 0 12px;
   font-size: 0.95rem;
@@ -121,7 +114,6 @@ function priorityStyle(p: RecommendationPriority) {
   color: #425466;
 }
 
-/* Низ карточки */
 .meta {
   display: flex;
   gap: 16px;
@@ -130,7 +122,6 @@ function priorityStyle(p: RecommendationPriority) {
   color: #64748b;
 }
 
-/* Ссылка на фрагмент */
 .excerpt-link {
   cursor: pointer;
   color: #0a7cff;
@@ -140,22 +131,14 @@ function priorityStyle(p: RecommendationPriority) {
     color 0.15s ease,
     text-decoration-color 0.15s ease;
 }
+
 .excerpt-link:hover {
   text-decoration: underline;
 }
+
 .excerpt-link:focus-visible {
   outline: 2px solid #0a7cff;
   outline-offset: 2px;
   border-radius: 6px;
-}
-
-/* Небольшая адаптивность */
-@media (min-width: 1400px) {
-  .reco-list {
-    gap: 16px;
-  }
-  .reco-card {
-    padding: 18px 22px;
-  }
 }
 </style>
