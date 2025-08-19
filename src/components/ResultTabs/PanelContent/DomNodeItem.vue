@@ -2,27 +2,27 @@
   <li class="dt-node">
     <div class="dt-node-line">
       <v-icon size="16" color="#0a7cff" class="mr-1">mdi-code-tags</v-icon>
-      <span class="dt-tag">&lt;{{ props.node.tag }}</span>
-      <span
-        v-if="props.node.attributes && Object.keys(props.node.attributes).length"
-        class="dt-attrs"
-      >
-        <template v-for="(val, key) in props.node.attributes" :key="key">
-          {{ ' ' + key }}="{{ val }}"
-        </template>
+      <span class="dt-tag">&lt;{{ node.tag }}</span>
+      <span v-if="hasAttrs" class="dt-attrs">
+        <template v-for="(val, key) in attrs" :key="key"> {{ ' ' + key }}="{{ val }}" </template>
       </span>
       <span class="dt-tag">&gt;</span>
     </div>
-    <ul v-if="props.node.children?.length" class="dt-children">
-      <DomNodeItem v-for="child in props.node.children" :key="child.id" :node="child" />
+    <ul v-if="children.length" class="dt-children">
+      <DomNodeItem v-for="child in children" :key="child.id" :node="child" />
     </ul>
   </li>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { DomNodeType } from '@/types/Panel/DOM/dom.types'
 
-const props = defineProps<{ node: DomNodeType }>()
+const { node } = defineProps<{ node: DomNodeType }>()
+
+const attrs = computed(() => node.attributes ?? {})
+const hasAttrs = computed(() => Object.keys(attrs.value).length > 0)
+const children = computed(() => node.children ?? [])
 </script>
 
 <style scoped>
