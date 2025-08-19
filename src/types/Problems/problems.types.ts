@@ -10,3 +10,7 @@ export interface ProblemItem {
   occurrences: number
   excerpt?: string // НОВОЕ: связка с текстом, без подсветки
 }
+
+export interface ProblemsScore {
+  score: number
+}
