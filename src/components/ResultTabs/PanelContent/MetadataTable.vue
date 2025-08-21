@@ -53,6 +53,7 @@ onMounted(async () => {
 .container-table {
   border: 1px solid #e9edf2;
   border-radius: 10px;
+  max-width: 1200px;
 }
 
 .table-header {
