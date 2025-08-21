@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="result-wrapper">
-    <v-card class="pa-5" elevation="12" rounded="xl">
+    <v-card class="result-card" elevation="12" rounded="xl">
       <div>
         <h1 class="tabs-title">Analysis Results</h1>
         <p class="tabs-subtitle">Insights, issues, and AI recommendations</p>
@@ -12,8 +12,6 @@
           {{ tab.label }}
         </v-tab>
       </v-tabs>
-
-      <v-divider class="mb-5" />
 
       <div class="panel-wrap">
         <transition name="fade-slide" mode="out-in">
@@ -32,8 +30,8 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import PanelContent from '@/components/ResultTabs/PanelContent/PanelContent.vue'
-import ListProblems from '@/components/ResultTabs/ListProblems.vue'
-import RecommendAI from '@/components/ResultTabs/RecommendAI.vue'
+import ListProblems from '../ResultTabs/ListProblems/ListProblems.vue'
+import ListRecommendations from '../ResultTabs/Recommendation/ListRecommendations.vue'
 import GalleryScreenshot from '../ResultTabs/GalleryScreenshot/GalleryScreenshot.vue'
 
 type TabValue = 'panel' | 'gallery' | 'problem' | 'recommend'
@@ -68,7 +66,7 @@ const tabs: TabItem[] = [
     label: 'Recommendation from AI',
     value: 'recommend',
     icon: 'mdi-robot-outline',
-    component: RecommendAI,
+    component: ListRecommendations,
   },
 ]
 
@@ -92,11 +90,15 @@ watch(
 
 <style scoped>
 .result-wrapper {
-  background: #f5f7fa;
-  min-height: 100vh;
+  background: #f9fbfd;
   padding: clamp(24px, 4vw, 48px);
   position: relative;
   overflow: clip;
+}
+
+.result-card {
+  padding: 25px;
+  background: #f5f7fa;
 }
 
 .tabs-title {
@@ -107,7 +109,7 @@ watch(
 }
 
 .tabs-subtitle {
-  margin: 6px 0 16px;
+  margin: 0px 0 16px;
   color: #6c757d;
   font-size: 16px;
 }
