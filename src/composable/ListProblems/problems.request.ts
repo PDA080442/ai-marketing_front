@@ -4,12 +4,18 @@ import type { ProblemsScore } from '@/types/Problems/problems.types'
 
 const { call } = useApi('/problems')
 
-export async function getProblemsList(): Promise<ProblemItem[]> {
-  const response = await call('/list/', {}, 'GET')
+function normToken(token: string): string {
+  return token.replace(/-/g, '')
+}
+
+export async function getProblemsList(token: string): Promise<ProblemItem[]> {
+  const t = normToken(token)
+  const response = await call(`/list/?token=${encodeURIComponent(t)}`, {}, 'GET')
   return response as ProblemItem[]
 }
 
-export async function getProblemsScore(): Promise<ProblemsScore> {
-  const response = await call('/score/', {}, 'GET')
+export async function getProblemsScore(token: string): Promise<ProblemsScore> {
+  const t = normToken(token)
+  const response = await call(`/score/?token=${encodeURIComponent(t)}`, {}, 'GET')
   return response as ProblemsScore
 }
