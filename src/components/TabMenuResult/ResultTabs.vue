@@ -32,7 +32,7 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import PanelContent from '@/components/ResultTabs/PanelContent/PanelContent.vue'
-import ListProblems from '@/components/ResultTabs/ListProblems.vue'
+import ListProblems from '../ResultTabs/ListProblems/ListProblems.vue'
 import ListRecommendations from '../ResultTabs/Recommendation/ListRecommendations.vue'
 import GalleryScreenshot from '../ResultTabs/GalleryScreenshot/GalleryScreenshot.vue'
 
