@@ -1,4 +1,3 @@
-// @/composable/Input/useInput.ts
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { InputUrl, TokenUser } from '@/types/Input/input.types'
