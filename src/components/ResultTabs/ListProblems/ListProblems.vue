@@ -50,10 +50,12 @@ const snackbarText = ref('')
 
 onMounted(async () => {
   try {
-    const scoreResp = await getProblemsScore()
+    const token = localStorage.getItem('tokenUser: ')
+    if (!token) return
+    const scoreResp = await getProblemsScore(token)
     score.value = Number(scoreResp?.score ?? 0)
 
-    const list = await getProblemsList()
+    const list = await getProblemsList(token)
     problems.value = Array.isArray(list) ? list : []
   } catch (err) {
     snackbar.value = true
