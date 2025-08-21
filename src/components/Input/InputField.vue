@@ -2,9 +2,7 @@
   <v-container fluid class="d-flex align-center justify-center form-wrapper">
     <v-card class="pa-10 form-card" max-width="750" width="750" elevation="12">
       <v-card-title class="mb-2 form-title">AI Marketing Content Crawler</v-card-title>
-      <v-card-text class="form-subtitle mb-4">
-        Paste one or more URLs to run the analysis
-      </v-card-text>
+      <v-card-text class="form-subtitle mb-4"> Paste URL to run the analysis </v-card-text>
 
       <div
         v-for="(link, index) in input.url"
@@ -20,25 +18,6 @@
           color="primary"
           class="flex-grow-1 mr-2"
         ></v-text-field>
-
-        <v-btn
-          v-if="input.url.length > 1 && index !== input.url.length - 1"
-          prepend-icon="mdi-close"
-          variant="text"
-          color="grey darken-1"
-          @click="removeLink(index)"
-          class="remove-btn mr-2"
-        >
-        </v-btn>
-        <v-btn
-          v-if="index === input.url.length - 1"
-          icon
-          color="primary"
-          @click="addLink"
-          class="add-btn"
-        >
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
       </div>
 
       <v-btn
@@ -71,22 +50,6 @@ const snackbarText = ref('')
 const input = reactive<InputUrl>({
   url: [''],
 })
-
-const addLink = () => {
-  input.url.push('')
-  snackbarText.value = 'You added new field for link'
-  snackbarColor.value = 'success'
-  snackbar.value = true
-}
-
-const removeLink = (index: number) => {
-  if (input.url.length > 1) {
-    input.url.splice(index, 1)
-  }
-  snackbarText.value = 'You deleted field for link'
-  snackbarColor.value = 'success'
-  snackbar.value = true
-}
 
 const isValidUrl = (url: string) => {
   return (url.startsWith('http://') || url.startsWith('https://')) && !url.includes(' ')
@@ -125,6 +88,7 @@ const submit = async () => {
 }
 
 .form-card {
+  margin-top: 120px;
   background: white;
   border-radius: 24px;
 }
@@ -145,27 +109,9 @@ const submit = async () => {
 .analyze-btn {
   font-weight: 500;
   font-size: 18px;
-  background-color: #1e88e5;
+  background-color: #0a7cff !important;
   color: white;
   transition: 0.3s;
-}
-
-.analyze-btn:hover {
-  background-color: #0a7cff !important;
-}
-
-.add-btn {
-  margin-right: 15px;
-  margin-left: 5px;
-}
-
-.add-btn:hover {
-  background-color: #0a7cff !important;
-}
-
-.remove-btn {
-  min-width: 32px;
-  height: 32px;
 }
 
 .snackbar {
