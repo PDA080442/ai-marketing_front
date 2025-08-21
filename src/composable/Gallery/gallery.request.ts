@@ -4,8 +4,13 @@ import { useApi } from '../useApi'
 
 const { call } = useApi('/gallery')
 
-export async function getGalleryScreen(): Promise<ScreenshotItem[]> {
-  const response = await call('/screenshot/', {}, 'GET')
+function normToken(token: string): string {
+  return token.replace(/-/g, '')
+}
+
+export async function getGalleryScreen(token: string): Promise<ScreenshotItem[]> {
+  const t = normToken(token)
+  const response = await call(`/screenshot/?token=${encodeURIComponent(t)}`, {}, 'GET')
   return response as ScreenshotItem[]
 }
 
