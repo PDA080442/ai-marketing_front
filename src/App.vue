@@ -4,12 +4,16 @@ import { RouterView } from 'vue-router'
 
 <template>
   <v-app>
+    <MainHeader />
     <v-main>
       <RouterView />
-      <v-card> </v-card>
     </v-main>
   </v-app>
 </template>
+
+<script lang="ts">
+import MainHeader from './components/layouts/components/MainHeader.vue'
+</script>
 
 <style scoped>
 .wrapper {
