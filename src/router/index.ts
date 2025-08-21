@@ -11,6 +11,7 @@ const router = createRouter({
       path: '/input-url',
       name: 'Input',
       component: InputUrlPage,
+      meta: { hideLayout: true },
     },
     {
       path: '/queue-links',
