@@ -27,7 +27,9 @@ import { getGalleryScreen } from '@/composable/Gallery/gallery.request'
 import ScreenshotLightbox from './ScreenshotLightbox.vue'
 import ScreenshotCard from './ScreenshotCard.vue'
 import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute() // ← и это
 const items = ref<ScreenshotItem[]>([])
 const lightboxOpen = ref(false)
 const carouselIndex = ref(0)
@@ -43,9 +45,17 @@ const openLightbox = (index: number) => {
   lightboxOpen.value = true
 }
 
+function qStr(x: unknown): string {
+  if (typeof x === 'string') return x
+  if (Array.isArray(x)) return x[0] ?? ''
+  return ''
+}
+
 onMounted(async () => {
   try {
-    items.value = await getGalleryScreen()
+    const token = qStr(route.query.token)
+    if (!token) return
+    items.value = await getGalleryScreen(token)
   } catch (err) {
     console.log('Error: ', err)
     snackbar.value = true
