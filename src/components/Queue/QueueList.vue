@@ -66,6 +66,7 @@ const snackbarColor = ref<'success' | 'error'>('success')
 const snackbarText = ref('')
 const tokenUser = computed(() => localStorage.getItem('tokenUser: ') || '')
 const queueItems = ref<QueueItems[]>([])
+const tokenUser = computed(() => localStorage.getItem('tokenUser: ') || '')
 
 const headers = [
   { title: 'Link', key: 'url', sortable: false },
