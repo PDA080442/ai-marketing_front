@@ -28,7 +28,7 @@
               size="small"
               rounded="lg"
               variant="elevated"
-              :to="{ name: 'Result', query: { id: item.id } }"
+              :to="{ name: 'Result', query: { id: item.id, token: tokenUser } }"
             >
               Result
             </v-btn>
@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import type { QueueItems } from '@/types/Queue/queue.types'
 import { getQueueLinks, cancelQueueLink } from '@/composable/Queue/queue.request'
 import BaseSnackbar from '../SnackBar/BaseSnackbar.vue'
@@ -64,8 +64,8 @@ import BaseSnackbar from '../SnackBar/BaseSnackbar.vue'
 const snackbar = ref(false)
 const snackbarColor = ref<'success' | 'error'>('success')
 const snackbarText = ref('')
-
 const queueItems = ref<QueueItems[]>([])
+const tokenUser = computed(() => localStorage.getItem('tokenUser: ') || '')
 
 const headers = [
   { title: 'Link', key: 'url', sortable: false },
@@ -103,7 +103,6 @@ const onCancel = async (item: QueueItems) => {
 <style scoped>
 .queue-wrapper {
   background: #f5f7fa;
-  min-height: 100vh;
   padding: 48px;
 }
 
