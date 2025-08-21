@@ -3,27 +3,9 @@
     <header class="lp-header">
       <h1 class="lp-title">Recommendations</h1>
     </header>
-    <v-tabs v-model="tab" class="problem-tabs">
-      <v-tab value="list" class="tab">Recommendations List</v-tab>
-      <v-tab value="text" class="tab">Page Text</v-tab>
-    </v-tabs>
 
     <v-window v-model="tab">
       <v-window-item value="list">
-        <div class="filters">
-          <v-chip
-            v-for="cat in categoriesWithAll"
-            :key="cat"
-            :color="cat === activeCategory ? 'primary' : ''"
-            variant="elevated"
-            pill
-            class="px-4"
-            @click="activeCategory = cat"
-          >
-            {{ cat }}
-          </v-chip>
-        </div>
-
         <RecommendationCardList :items="filteredFlat" />
       </v-window-item>
 
@@ -37,21 +19,21 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import RecommendationCardList from './RecommendationCardList.vue'
-import { RECO_CATEGORIES } from '@/utils/Recommendations/constants'
 import { getRecommendationsList } from '@/composable/Recommendations/recommendations.request'
 import type { RecommendationItem } from '@/types/Recommendations/recommendations.types'
+import { useRoute } from 'vue-router'
 
 const tab = ref<'list' | 'text'>('list')
 const list = ref<RecommendationItem[]>([])
 const activeCategory = ref<string>('All')
-
-const categoriesWithAll = computed(() => ['All', ...RECO_CATEGORIES])
 
 const filtered = computed(() =>
   activeCategory.value === 'All'
     ? list.value
     : list.value.filter((r) => r.category === activeCategory.value),
 )
+
+const route = useRoute()
 
 // сортировка по приоритету для карточек
 const order: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3, info: 4 }
@@ -61,9 +43,17 @@ const filteredFlat = computed(() =>
 
 const textOnly = computed(() => list.value.filter((r) => !!r.excerpt))
 
+function qStr(x: unknown): string {
+  if (typeof x === 'string') return x
+  if (Array.isArray(x)) return x[0] ?? ''
+  return ''
+}
+
 onMounted(async () => {
   try {
-    const items = await getRecommendationsList()
+    const token = qStr(route.query.token)
+    if (!token) return
+    const items = await getRecommendationsList(token)
     list.value = Array.isArray(items) ? items : []
   } catch (e) {
     console.error(e)
