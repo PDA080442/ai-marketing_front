@@ -21,7 +21,7 @@ const drawer = ref(true)
   background: #f7f9fc;
 }
 .page-wrap {
-  max-width: 1180px;
+  max-width: 1200px;
   margin: 24px auto;
   padding: 0 16px 32px;
 }

@@ -103,7 +103,6 @@ const onCancel = async (item: QueueItems) => {
 <style scoped>
 .queue-wrapper {
   background: #f5f7fa;
-  min-height: 100vh;
   padding: 48px;
 }
 

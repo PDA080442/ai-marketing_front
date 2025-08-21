@@ -19,8 +19,10 @@ const scan = () => {
 </script>
 
 <style scoped>
+.v-app-bar.v-toolbar {
+  background: #f7f9fc !important;
+}
 .appbar {
-  background: #ffffff !important;
   border-bottom: 1px solid rgba(10, 32, 66, 0.06);
 }
 .brand .dot {

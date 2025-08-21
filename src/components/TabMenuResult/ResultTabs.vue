@@ -13,8 +13,6 @@
         </v-tab>
       </v-tabs>
 
-      <v-divider class="mb-5" />
-
       <div class="panel-wrap">
         <transition name="fade-slide" mode="out-in">
           <component
@@ -92,8 +90,7 @@ watch(
 
 <style scoped>
 .result-wrapper {
-  background: #f5f7fa;
-  min-height: 100vh;
+  background: #f9fbfd;
   padding: clamp(24px, 4vw, 48px);
   position: relative;
   overflow: clip;
@@ -107,7 +104,7 @@ watch(
 }
 
 .tabs-subtitle {
-  margin: 6px 0 16px;
+  margin: 0px 0 16px;
   color: #6c757d;
   font-size: 16px;
 }
