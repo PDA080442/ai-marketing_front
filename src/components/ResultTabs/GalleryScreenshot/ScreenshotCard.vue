@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 import type { ScreenshotItem } from '@/types/Gallery/gallery.types'
+import { useScreenshotCard } from '@/services/Gallery/useScreenshotCard'
 
 const props = defineProps<{
   shot: ScreenshotItem
@@ -31,9 +32,7 @@ const props = defineProps<{
   onOpen?: (index: number) => void
 }>()
 
-const handleClick = () => {
-  props.onOpen?.(props.index)
-}
+const { handleClick } = useScreenshotCard(props)
 </script>
 
 <style scoped>
