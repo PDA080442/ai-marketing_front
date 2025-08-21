@@ -7,12 +7,7 @@ const drawer = ref(true)
 
 <template>
   <v-app>
-    <!-- Header -->
     <MainHeader @toggle-drawer="drawer = !drawer" />
-
-    <!-- Sidebar (должен идти сразу после app-bar и перед v-main) -->
-
-    <!-- Контент -->
     <v-main class="bg">
       <div class="page-wrap">
         <router-view />

@@ -3,12 +3,10 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <v-app>
-    <MainLayout />
-    <v-main>
-      <RouterView />
-    </v-main>
-  </v-app>
+  <MainLayout />
+  <v-main>
+    <RouterView />
+  </v-main>
 </template>
 
 <script lang="ts">

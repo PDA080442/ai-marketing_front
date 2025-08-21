@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <v-app-bar flat height="68" class="appbar">
     <div class="brand d-flex align-center">
@@ -9,9 +7,16 @@
 
     <v-spacer />
 
-    <v-btn variant="tonal" color="primary" class="mr-5">New Scan</v-btn>
+    <v-btn variant="tonal" color="primary" class="mr-5" @click="scan">New Scan</v-btn>
   </v-app-bar>
 </template>
+
+<script setup lang="ts">
+import router from '@/router'
+const scan = () => {
+  router.push({ path: '/input-url' })
+}
+</script>
 
 <style scoped>
 .appbar {
