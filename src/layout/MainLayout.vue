@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import MainHeader from './components/MainHeader.vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const drawer = ref(true)
 </script>
 
 <template>
   <v-app>
-    <MainHeader @toggle-drawer="drawer = !drawer" />
+    <MainHeader @toggle-drawer="drawer = !drawer" v-if="!route.meta.hideLayout" />
     <v-main class="bg">
       <div class="page-wrap">
         <router-view />
@@ -21,8 +23,6 @@ const drawer = ref(true)
   background: #f7f9fc;
 }
 .page-wrap {
-  max-width: 1200px;
-  margin: 24px auto;
-  padding: 0 16px 32px;
+  margin: 0 auto;
 }
 </style>
