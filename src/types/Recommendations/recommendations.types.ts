@@ -4,9 +4,9 @@ export interface RecommendationItem {
   id: string
   title: string
   details: string
-  category: string // SEO | Performance | Accessibility | Content | UX | CRO ...
+  category: string
   priority: RecommendationPriority
-  impact?: number // 0..1 — влияние на CRO/конверсию (опционально)
-  effort?: 'low' | 'medium' | 'high' // оценка трудозатрат (опционально)
-  excerpt?: string // фрагмент текста (для связи с PageText)
+  impact?: number
+  effort?: 'low' | 'medium' | 'high'
+  excerpt?: string
 }

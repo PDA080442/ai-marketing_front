@@ -15,14 +15,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { DomNodeType } from '@/types/Panel/DOM/dom.types'
+import { useDomNodeItem } from '@/services/Panel/useDomNode'
 
-const { node } = defineProps<{ node: DomNodeType }>()
+const props = defineProps<{ node: DomNodeType }>()
 
-const attrs = computed(() => node.attributes ?? {})
-const hasAttrs = computed(() => Object.keys(attrs.value).length > 0)
-const children = computed(() => node.children ?? [])
+const { attrs, hasAttrs, children } = useDomNodeItem(props)
 </script>
 
 <style scoped>
