@@ -22,7 +22,6 @@ export function useRecommendationsList() {
       : list.value.filter((r) => r.category === activeCategory.value),
   )
 
-  // сортировка по приоритету для карточек
   const order: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3, info: 4 }
   const filteredFlat = computed(() =>
     [...filtered.value].sort((a, b) => (order[a.priority] ?? 99) - (order[b.priority] ?? 99)),
