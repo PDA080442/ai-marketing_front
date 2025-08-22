@@ -13,8 +13,6 @@
         </v-tab>
       </v-tabs>
 
-      <v-divider class="mb-5" />
-
       <div class="panel-wrap">
         <transition name="fade-slide" mode="out-in">
           <component
@@ -29,71 +27,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
 import PanelContent from '@/components/ResultTabs/PanelContent/PanelContent.vue'
 import ListProblems from '../ResultTabs/ListProblems/ListProblems.vue'
 import ListRecommendations from '../ResultTabs/Recommendation/ListRecommendations.vue'
 import GalleryScreenshot from '../ResultTabs/GalleryScreenshot/GalleryScreenshot.vue'
+import { useResultTabs } from '@/services/ResultTabs/useResultTabs'
 
-type TabValue = 'panel' | 'gallery' | 'problem' | 'recommend'
-
-interface TabItem {
-  label: string
-  value: TabValue
-  icon: string
-  component: object
-}
-
-const tabs: TabItem[] = [
-  {
-    label: 'Panel Content',
-    value: 'panel',
-    icon: 'mdi-view-dashboard-outline',
-    component: PanelContent,
-  },
-  {
-    label: 'Gallery Screenshots',
-    value: 'gallery',
-    icon: 'mdi-image-album',
-    component: GalleryScreenshot,
-  },
-  {
-    label: 'List Problems',
-    value: 'problem',
-    icon: 'mdi-alert-circle-outline',
-    component: ListProblems,
-  },
-  {
-    label: 'Recommendation from AI',
-    value: 'recommend',
-    icon: 'mdi-robot-outline',
-    component: ListRecommendations,
-  },
-]
-
-const route = useRoute()
-
-const activeIndex = ref(
-  Math.max(
-    0,
-    tabs.findIndex((t) => t.value === route.query.tab),
-  ),
-)
-
-watch(
-  () => route.query.tab,
-  (q) => {
-    const idx = tabs.findIndex((t) => t.value === q)
-    if (idx !== -1) activeIndex.value = idx
-  },
-)
+const { tabs, activeIndex } = useResultTabs({
+  PanelContent,
+  GalleryScreenshot,
+  ListProblems,
+  ListRecommendations,
+})
 </script>
 
 <style scoped>
 .result-wrapper {
-  background: #f5f7fa;
-  min-height: 100vh;
+  background: #f9fbfd;
   padding: clamp(24px, 4vw, 48px);
   position: relative;
   overflow: clip;
@@ -112,7 +62,7 @@ watch(
 }
 
 .tabs-subtitle {
-  margin: 6px 0 16px;
+  margin: 0px 0 16px;
   color: #6c757d;
   font-size: 16px;
 }
