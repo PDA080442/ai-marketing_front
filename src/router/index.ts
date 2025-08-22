@@ -7,7 +7,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/input-url',
+      path: '/',
       name: 'Input',
       component: InputUrlPage,
       meta: { hideLayout: true },
