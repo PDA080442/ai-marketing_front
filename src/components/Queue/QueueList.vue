@@ -1,18 +1,19 @@
 <template>
   <v-container fluid class="queue-wrapper">
-    <h1 class="queue-title">Processing Queue</h1>
+    <div class="queue-header">
+      <h1 class="queue-title">Processing Queue</h1>
 
-    <v-btn
-      class="check-status-btn"
-      size="large"
-      rounded="pill"
-      variant="elevated"
-      prepend-icon="mdi-refresh"
-      elevation="12"
-      @click="reloadPage"
-    >
-      Check status
-    </v-btn>
+      <v-btn
+        class="check-status-btn"
+        variant="outlined"
+        color="primary"
+        rounded="lg"
+        prepend-icon="mdi-refresh"
+        @click="reloadPage"
+      >
+        Check status
+      </v-btn>
+    </div>
 
     <v-data-table
       :headers="headers"
@@ -71,9 +72,10 @@
 import BaseSnackbar from '../SnackBar/BaseSnackbar.vue'
 import { useQueueList } from '@/services/Queue/useQueueList'
 
-const reloadPage = () => window.location.reload()
 const { snackbar, snackbarColor, snackbarText, queueItems, tokenUser, headers, onCancel } =
   useQueueList()
+
+const reloadPage = () => window.location.reload()
 </script>
 
 <style scoped>
@@ -82,26 +84,35 @@ const { snackbar, snackbarColor, snackbarText, queueItems, tokenUser, headers, o
   padding: 48px;
 }
 
+.queue-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
 .queue-title {
+  margin: 0;
   font-weight: 800;
   color: #0a7cff;
-  margin-bottom: 16px;
   font-size: 30px;
   letter-spacing: 1px;
   word-spacing: 10px;
+}
+.check-status-btn {
+  margin-left: auto;
+  flex: 0 0 auto;
 }
 
 .url-cell {
   display: flex;
   align-items: center;
 }
-
 .url-link {
   color: #1e88e5;
   font-size: 15px;
   font-weight: 600;
 }
-
 .url-link:hover {
   text-decoration: underline;
   background: none !important;
