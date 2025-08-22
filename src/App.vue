@@ -3,13 +3,15 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <v-app>
-    <v-main>
-      <RouterView />
-      <v-card> </v-card>
-    </v-main>
-  </v-app>
+  <MainLayout />
+  <v-main>
+    <RouterView />
+  </v-main>
 </template>
+
+<script lang="ts">
+import MainLayout from './layout/MainLayout.vue'
+</script>
 
 <style scoped>
 .wrapper {

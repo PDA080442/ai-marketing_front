@@ -12,9 +12,6 @@
 
       <div class="meta">
         <span class="effort">Effort: {{ item.effort ?? '—' }}</span>
-        <span v-if="item.excerpt" class="excerpt-link" v-tooltip="item.excerpt">
-          Read excerpt
-        </span>
       </div>
     </div>
   </div>

@@ -5,10 +5,10 @@ export interface ProblemItem {
   title: string
   details: string
   severity: ProblemSeverity
-  category: string // SEO | Performance | Accessibility | Content | UX | CRO ...
-  selector?: string // опц., оставим для будущего
+  category: string
+  selector?: string
   occurrences: number
-  excerpt?: string // НОВОЕ: связка с текстом, без подсветки
+  excerpt?: string
 }
 
 export interface ProblemsScore {
