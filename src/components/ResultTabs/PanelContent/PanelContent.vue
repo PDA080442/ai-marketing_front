@@ -28,37 +28,13 @@
 import MetadataTable from './MetadataTable.vue'
 import PageText from './PageText.vue'
 import DomTree from './DomTree.vue'
-type SectionValue = 'metadata' | 'dom' | 'text'
+import { usePanelSections } from '@/services/Panel/usePanelContent'
 
-interface SectionItem {
-  value: SectionValue
-  label: string
-  icon: string
-  component: object
-}
-
-const sections: SectionItem[] = [
-  {
-    value: 'metadata',
-    label: 'Metadata',
-    icon: 'mdi-file-document-outline',
-    component: MetadataTable,
-  },
-
-  {
-    value: 'dom',
-    label: 'DOM Structure',
-    icon: 'mdi-text-box-outline',
-    component: DomTree,
-  },
-
-  {
-    value: 'text',
-    label: 'Text from site',
-    icon: 'mdi-format-header-pound',
-    component: PageText,
-  },
-]
+const { sections } = usePanelSections({
+  metadata: MetadataTable,
+  dom: DomTree,
+  text: PageText,
+})
 </script>
 
 <style scoped>
