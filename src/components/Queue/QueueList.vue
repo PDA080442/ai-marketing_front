@@ -56,54 +56,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
-import type { QueueItems } from '@/types/Queue/queue.types'
-import { getQueueLinks, cancelQueueLink } from '@/composable/Queue/queue.request'
 import BaseSnackbar from '../SnackBar/BaseSnackbar.vue'
+import { useQueueList } from '@/services/Queue/useQueueList'
 
-const snackbar = ref(false)
-const snackbarColor = ref<'success' | 'error'>('success')
-const snackbarText = ref('')
-const queueItems = ref<QueueItems[]>([])
-const tokenUser = computed(() => localStorage.getItem('tokenUser: ') || '')
-
-const headers = [
-  { title: 'Link', key: 'url', sortable: false },
-  { title: 'Progress', key: 'progress', sortable: false },
-  { title: 'Actions', key: 'actions', sortable: false },
-]
-
-onMounted(async () => {
-  const token = localStorage.getItem('tokenUser: ') || ''
-  if (!token) return
-  try {
-    const data = await getQueueLinks(token)
-    queueItems.value = data
-  } catch (error) {
-    console.error(error)
-    snackbar.value = true
-    snackbarColor.value = 'error'
-    snackbarText.value = 'An error has occurred - data not loaded. Please reload the page.'
-    queueItems.value = []
-  }
-})
-
-const onCancel = async (item: QueueItems) => {
-  const token = localStorage.getItem('tokenUser: ') || ''
-  if (!token) return
-  try {
-    await cancelQueueLink(item.id, token)
-    queueItems.value = queueItems.value.filter((i) => i.id !== item.id)
-  } catch (err) {
-    console.error(err)
-  }
-}
+const { snackbar, snackbarColor, snackbarText, queueItems, tokenUser, headers, onCancel } =
+  useQueueList()
 </script>
 
 <style scoped>
 .queue-wrapper {
   background: #f5f7fa;
-  min-height: 100vh;
   padding: 48px;
 }
 

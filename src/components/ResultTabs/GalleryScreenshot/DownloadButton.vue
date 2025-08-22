@@ -7,32 +7,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { downloadScreenshot } from '@/composable/Gallery/gallery.request'
-import type { ScreenshotDownload } from '@/types/Gallery/gallery.types'
 import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
-
-const snackbar = ref(false)
-const snackbarColor = ref<'success' | 'error'>('success')
-const snackbarText = ref('')
+import { useScreenshotDownload } from '@/services/Gallery/useDownloadButton'
 
 const props = defineProps<{ id: string }>()
 
-const handleDownload = async () => {
-  try {
-    const file: ScreenshotDownload = await downloadScreenshot(props.id)
-    const f = document.createElement('a')
-    f.href = file.url
-    f.download = file.fileName
-    f.rel = 'noopener'
-    f.click()
-  } catch (err) {
-    snackbar.value = true
-    snackbarColor.value = 'error'
-    snackbarText.value = 'Error. Screenshot does not save'
-    console.error(err)
-  }
-}
+const { snackbar, snackbarColor, snackbarText, handleDownload } = useScreenshotDownload(props.id)
 </script>
 
 <style scoped>

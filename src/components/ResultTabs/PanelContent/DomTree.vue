@@ -12,29 +12,11 @@
 </template>
 
 <script setup lang="ts">
-import type { DomNodeType } from '@/types/Panel/DOM/dom.types'
 import DomNodeItem from './DomNodeItem.vue'
-import { ref, onMounted } from 'vue'
-import { getDomStructure } from '@/composable/PanelContent/panelcontent.request'
 import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
+import { useDomTree } from '@/services/Panel/useDomTree'
 
-const snackbar = ref(false)
-const snackbarColor = ref<'success' | 'error'>('success')
-const snackbarText = ref('')
-
-const nodes = ref<DomNodeType[]>([])
-
-onMounted(async () => {
-  try {
-    const response = await getDomStructure()
-    nodes.value = Array.isArray(response) ? response : [response]
-  } catch (err) {
-    snackbar.value = true
-    snackbarColor.value = 'error'
-    snackbarText.value = 'An error has occurred - data not loaded. Please reload the page.'
-    console.error('Failed to load DOM structure:', err)
-  }
-})
+const { snackbar, snackbarColor, snackbarText, nodes } = useDomTree()
 </script>
 
 <style scoped>
