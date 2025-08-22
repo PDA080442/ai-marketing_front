@@ -10,6 +10,9 @@ export function useInput() {
   const snackbarColor = ref<'success' | 'error'>('success')
   const snackbarText = ref('')
 
+  // Флаг для v-dialog
+  const scanning = ref(false)
+
   const input = reactive<InputUrl>({
     url: [''],
   })
@@ -27,6 +30,8 @@ export function useInput() {
       }
     }
 
+    scanning.value = true
+
     try {
       const { token } = (await postUrl(input)) as TokenUser
       localStorage.setItem('tokenUser: ', token)
@@ -39,6 +44,8 @@ export function useInput() {
       snackbarText.value = 'An error has occurred.\nPlease check your links and try again.'
       snackbarColor.value = 'error'
       snackbar.value = true
+    } finally {
+      scanning.value = false
     }
   }
 
@@ -48,5 +55,6 @@ export function useInput() {
     snackbarColor,
     snackbarText,
     submit,
+    scanning,
   }
 }

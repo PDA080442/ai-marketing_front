@@ -42,6 +42,19 @@
         for increasing conversion.
       </p>
     </div>
+
+    <v-dialog v-model="scanning" persistent width="420">
+      <v-card class="scan-card pa-6 d-flex flex-column align-center">
+        <div class="scan-anim mb-4">
+          <div class="pulse"></div>
+          <div class="pulse pulse-2"></div>
+          <div class="pulse pulse-3"></div>
+          <v-progress-circular indeterminate :size="80" :width="6" color="primary" />
+        </div>
+        <h3 class="scan-title mb-1">Scanning your link…</h3>
+        <p class="scan-subtitle text-medium-emphasis mb-0">Rendering and extracting content</p>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -49,7 +62,7 @@
 import BaseSnackbar from '../SnackBar/BaseSnackbar.vue'
 
 import { useInput } from '@/services/Input/useInput'
-const { input, snackbar, snackbarColor, snackbarText, submit } = useInput()
+const { input, snackbar, snackbarColor, snackbarText, submit, scanning } = useInput()
 </script>
 
 <style scoped>
@@ -113,5 +126,61 @@ const { input, snackbar, snackbarColor, snackbarText, submit } = useInput()
   background-color: #0a7cff !important;
   color: white;
   transition: 0.3s;
+}
+
+/* Dialog styles */
+.scan-card {
+  border-radius: 20px;
+}
+
+.scan-title {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.scan-subtitle {
+  font-size: 14px;
+}
+
+.scan-anim {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+}
+
+.pulse,
+.pulse-2,
+.pulse-3 {
+  position: absolute;
+  border: 2px solid rgba(10, 124, 255, 0.35);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: pulse 1.8s linear infinite;
+}
+
+.pulse-2 {
+  animation-delay: 0.3s;
+}
+
+.pulse-3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0.15;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
 }
 </style>
