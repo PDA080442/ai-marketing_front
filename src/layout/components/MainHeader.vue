@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import router from '@/router'
 const scan = () => {
-  router.push({ path: '/input-url' })
+  router.push({ path: '/' })
 }
 </script>
 
