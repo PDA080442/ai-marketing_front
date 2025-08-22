@@ -30,55 +30,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
 import ProblemsTables from './ProblemsTables.vue'
 import ProblemTable from './ProblemTable.vue'
 import ProblemScoreCircle from './ProblemScoreCircle.vue'
 import PageText from '../PanelContent/PageText.vue'
 import BaseSnackbar from '@/components/SnackBar/BaseSnackbar.vue'
-import type { ProblemItem } from '@/types/Problems/problems.types'
-import { getProblemsList, getProblemsScore } from '@/composable/ListProblems/problems.request'
-import { useRoute } from 'vue-router' // ← добавь это
-const route = useRoute() // ← и это
+import { useProblemsList } from '@/services/Problems/useListProblems'
 
-const tab = ref<'tables' | 'text'>('tables')
-
-const problems = ref<ProblemItem[]>([])
-const score = ref<number>(0) // можно посчитать по формуле/с бэка
-
-const snackbar = ref(false)
-const snackbarColor = ref<'success' | 'error'>('success')
-const snackbarText = ref('')
-
-// helper, чтобы безопасно вытащить строку из query
-function qStr(x: unknown): string {
-  if (typeof x === 'string') return x
-  if (Array.isArray(x)) return x[0] ?? ''
-  return ''
-}
-
-onMounted(async () => {
-  try {
-    const token = qStr(route.query.token)
-    if (!token) return
-    const scoreResp = await getProblemsScore(token)
-    score.value = Number(scoreResp?.score ?? 0)
-
-    const list = await getProblemsList(token)
-    problems.value = Array.isArray(list) ? list : []
-  } catch (err) {
-    snackbar.value = true
-    snackbarColor.value = 'error'
-    snackbarText.value = 'Failed to load problems.'
-    console.error(err)
-  }
-})
-
-const textProblems = computed<ProblemItem[]>(() =>
-  problems.value.filter(
-    (problems) => ['Content', 'SEO', 'UX'].includes(problems.category) || !!problems.excerpt,
-  ),
-)
+const { tab, problems, score, snackbar, snackbarColor, snackbarText, textProblems } =
+  useProblemsList()
 </script>
 
 <style scoped>
