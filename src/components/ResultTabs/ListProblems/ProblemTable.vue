@@ -26,46 +26,15 @@
 </template>
 
 <script setup lang="ts">
-import type { ProblemItem, ProblemSeverity } from '@/types/Problems/problems.types'
+import type { ProblemItem } from '@/types/Problems/problems.types'
+import { useProblemTable } from '@/services/Problems/useProblemTable'
 
 interface Props {
   problems: ProblemItem[]
 }
 defineProps<Props>()
 
-type Header = {
-  title: string
-  key: keyof ProblemItem | 'excerpt'
-  sortable?: boolean
-  width?: number | string
-}
-
-const headers: Header[] = [
-  { title: 'Title', key: 'title', width: 250 },
-  { title: 'Details', key: 'details', width: 400 },
-  { title: 'Severity', key: 'severity', width: 150 },
-  { title: 'Quantity', key: 'occurrences', width: 100 },
-  { title: 'Excerpt', key: 'excerpt', sortable: false, width: 300 },
-]
-
-function severityColor(sev: ProblemSeverity): string {
-  switch (sev) {
-    case 'critical':
-      return 'red-darken-4'
-    case 'high':
-      return 'red'
-    case 'medium':
-      return 'orange'
-    case 'low':
-      return 'blue'
-    default:
-      return 'grey'
-  }
-}
-
-function short(text: string, max = 80): string {
-  return text.length > max ? `${text.slice(0, max)}…` : text
-}
+const { headers, severityColor, short } = useProblemTable()
 </script>
 
 <style scoped>
