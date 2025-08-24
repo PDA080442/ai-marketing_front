@@ -12,6 +12,7 @@
 
       <div class="meta">
         <span class="effort">Effort: {{ item.effort ?? '—' }}</span>
+        <span class="signature">AI Recommendation</span>
       </div>
     </div>
   </div>
@@ -137,5 +138,12 @@ function priorityStyle(p: RecommendationPriority) {
   outline: 2px solid #0a7cff;
   outline-offset: 2px;
   border-radius: 6px;
+}
+
+.signature {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #94a3b8;
 }
 </style>
