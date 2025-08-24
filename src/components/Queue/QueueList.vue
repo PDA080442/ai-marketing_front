@@ -18,6 +18,7 @@
     <v-data-table
       :headers="headers"
       :items="queueItems"
+      hide-default-footer
       item-key="id"
       class="elevation-4 rounded-xl overflow-hidden pa-2"
     >
