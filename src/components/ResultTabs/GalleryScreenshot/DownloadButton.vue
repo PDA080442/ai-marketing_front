@@ -1,5 +1,13 @@
 <template>
-  <v-btn color="primary" variant="tonal" rounded="lg" class="download-btn" @click="handleDownload">
+  <v-btn
+    color="primary"
+    variant="tonal"
+    rounded="lg"
+    class="download-btn"
+    @click="handleDownload"
+    target="_blank"
+    rel="noopener"
+  >
     <v-icon start>mdi-download</v-icon>
     Watch and Download
   </v-btn>
