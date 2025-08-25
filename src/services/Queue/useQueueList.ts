@@ -1,13 +1,16 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import type { QueueItems } from '@/types/Queue/queue.types'
 import { getQueueLinks, cancelQueueLink } from '@/composable/Queue/queue.request'
 
 export function useQueueList() {
+  const route = useRoute()
+
   const snackbar = ref(false)
   const snackbarColor = ref<'success' | 'error'>('success')
   const snackbarText = ref('')
   const queueItems = ref<QueueItems[]>([])
-  const tokenUser = computed(() => localStorage.getItem('tokenUser: ') || '')
+  const tokenUser = ref<string>('')
 
   const headers = [
     { title: 'Link', key: 'url', sortable: false },
@@ -15,11 +18,25 @@ export function useQueueList() {
     { title: 'Actions', key: 'actions', sortable: false },
   ]
 
+  const readTokenFromRoute = (): string => {
+    const raw = route.query.token
+    if (typeof raw === 'string') return raw
+    if (Array.isArray(raw) && raw.length > 0 && typeof raw[0] === 'string') return raw[0]
+    return ''
+  }
+
   const fetchQueue = async () => {
-    const token = localStorage.getItem('tokenUser: ') || ''
-    if (!token) return
+    tokenUser.value = readTokenFromRoute()
+    if (!tokenUser.value) {
+      snackbar.value = true
+      snackbarColor.value = 'error'
+      snackbarText.value =
+        'Missing token in URL. Open the queue via the link you received after submission.'
+      queueItems.value = []
+      return
+    }
     try {
-      const data = await getQueueLinks(token)
+      const data = await getQueueLinks(tokenUser.value)
       queueItems.value = data
     } catch (error) {
       console.error(error)
@@ -32,11 +49,17 @@ export function useQueueList() {
 
   onMounted(fetchQueue)
 
+  watch(
+    () => route.query.token,
+    () => {
+      void fetchQueue()
+    },
+  )
+
   const onCancel = async (item: QueueItems) => {
-    const token = localStorage.getItem('tokenUser: ') || ''
-    if (!token) return
+    if (!tokenUser.value) return
     try {
-      await cancelQueueLink(item.id, token)
+      await cancelQueueLink(item.id, tokenUser.value)
       queueItems.value = queueItems.value.filter((i) => i.id !== item.id)
     } catch (err) {
       console.error(err)

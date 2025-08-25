@@ -10,7 +10,6 @@ export function useInput() {
   const snackbarColor = ref<'success' | 'error'>('success')
   const snackbarText = ref('')
 
-  // Флаг для v-dialog
   const scanning = ref(false)
 
   const input = reactive<InputUrl>({
@@ -34,7 +33,6 @@ export function useInput() {
 
     try {
       const { token } = (await postUrl(input)) as TokenUser
-      localStorage.setItem('tokenUser: ', token)
       await router.push({ name: 'Queue', query: { token } })
       snackbarText.value = 'You sent link(s) for analyze'
       snackbarColor.value = 'success'
