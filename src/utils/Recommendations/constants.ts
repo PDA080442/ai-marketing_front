@@ -1,8 +1,7 @@
-// severity-чипы (заливка, белый текст)
 export const PRIORITY_HEX: Record<string, string> = {
-  critical: '#D92D20', // красный
-  high: '#F79009', // оранжевый
-  medium: '#FDB022', // янтарный
-  low: '#2E90FA', // синий
-  info: '#64748B', // серый
+  critical: '#D92D20',
+  high: '#F79009',
+  medium: '#FDB022',
+  low: '#2E90FA',
+  info: '#64748B',
 }

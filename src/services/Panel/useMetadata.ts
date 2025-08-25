@@ -1,4 +1,3 @@
-// @/composable/PanelContent/useMetadataTable.ts
 import { ref, onMounted } from 'vue'
 import type { MetaType } from '@/types/Panel/Metadata/metadata.types'
 import { getMetadata } from '@/composable/PanelContent/panelcontent.request'

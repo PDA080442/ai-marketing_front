@@ -73,10 +73,16 @@
 import BaseSnackbar from '../SnackBar/BaseSnackbar.vue'
 import { useQueueList } from '@/services/Queue/useQueueList'
 
-const { snackbar, snackbarColor, snackbarText, queueItems, tokenUser, headers, onCancel } =
-  useQueueList()
-
-const reloadPage = () => window.location.reload()
+const {
+  snackbar,
+  snackbarColor,
+  snackbarText,
+  queueItems,
+  tokenUser,
+  headers,
+  onCancel,
+  reloadPage,
+} = useQueueList()
 </script>
 
 <style scoped>

@@ -66,6 +66,8 @@ export function useQueueList() {
     }
   }
 
+  const reloadPage = () => window.location.reload()
+
   return {
     snackbar,
     snackbarColor,
@@ -74,5 +76,6 @@ export function useQueueList() {
     tokenUser,
     headers,
     onCancel,
+    reloadPage,
   }
 }
