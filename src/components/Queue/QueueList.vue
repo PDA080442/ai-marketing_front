@@ -76,9 +76,7 @@ import { useQueueList } from '@/services/Queue/useQueueList'
 const { snackbar, snackbarColor, snackbarText, queueItems, tokenUser, headers, onCancel } =
   useQueueList()
 
-const reloadPage = async () => {
-  history.replaceState(null, '', location.href) // остаёмся на том же URL
-}
+const reloadPage = () => window.location.reload()
 </script>
 
 <style scoped>
