@@ -12,7 +12,10 @@
 
       <div class="meta">
         <span class="effort">Effort: {{ item.effort ?? '—' }}</span>
-        <span class="signature">AI Recommendation</span>
+        <span class="signature"
+          >The text of the recommendations from the AI ​​may differ from the text on the
+          website</span
+        >
       </div>
     </div>
   </div>
